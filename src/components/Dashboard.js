@@ -73,7 +73,7 @@ const Dashboard = (props) => {
                         </Link>
                     </li>
                     <li class='nav-item'>
-                        <Link class="nav-link" to="/">
+                        <Link class="nav-link" to="/usuarios">
                             <i class='nav-icon fas fa-edit'></i>
                             <p>Usuarios<i class="right fas fa-angle-right"></i></p>
                         </Link>
