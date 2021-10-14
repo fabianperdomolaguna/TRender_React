@@ -1,5 +1,5 @@
 import React from "react";
-
+import { actualizarDocumentoDatabase, consultarDatabase, consultarDocumentoDatabase, datosUsuario, guardarDatabase } from '../conexion-bd/funciones';
 function Usuarios() {
     return (
         <>
