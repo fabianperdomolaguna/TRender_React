@@ -1,6 +1,14 @@
-import React from "react";
-import { actualizarDocumentoDatabase, consultarDatabase, consultarDocumentoDatabase, datosUsuario, guardarDatabase } from '../conexion-bd/funciones';
+import React, {useState} from "react";
+import {consultarDatabase} from '../conexion-bd/funciones';
+
 function Usuarios() {
+    const [listaUsuarios, setListaUsuarios] = useState([])
+
+    const handleCargarDatos = async () => {
+        const listaTemporal = await consultarDatabase('usuarios')
+        setListaUsuarios(listaTemporal)
+    }
+    handleCargarDatos()
     return (
         <>
             <div class="content-wrapper">
@@ -18,16 +26,24 @@ function Usuarios() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class="text-center">1</th>
-                                    <td class="text-center">Santiago Montoya P.</td>
-                                    <td class="text-center">Administrador</td>
-                                    <td class="text-center">Activo</td>
-                                    <td class="text-center">
-                                        <button id="btnEditar" ><i class="fas fa-eye"></i></button>
-                                        <button id="btnEliminar"><i class="fas fa-edit"></i></button>
-                                    </td>
-                                </tr>
+
+                                {
+                                    listaUsuarios.map((usuario,index)=>{
+                                        console.log('Entro')
+                                        return(
+                                        <tr key={usuario.id}>
+                                        <th class="text-center">{index + 1}</th>
+                                        <td class="text-center">{usuario.nombre}</td>
+                                        <td class="text-center">{usuario.rol}</td>
+                                        <td class="text-center">{usuario.estado}</td>
+                                        <td class="text-center">
+                                            <button id="btnEditar" ><i class="fas fa-eye"></i></button>
+                                            <button id="btnEliminar"><i class="fas fa-edit"></i></button>
+                                        </td>
+                                    </tr>
+                                    )
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>
