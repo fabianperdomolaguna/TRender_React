@@ -7,6 +7,7 @@ import Cursos from "./components/Cursos";
 import Ventas from "./components/Ventas";
 import Usuarios from "./components/Usuarios";
 import Roles from "./components/Roles";
+import Login from "./components/Login";
 import './App.css';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/ventas" exact component={() => <Ventas />} />
           <Route path="/usuarios" exact component={() => <Usuarios />} />
           <Route path="/roles" exact component={() => <Roles />} />
+          <Route path="/login" exact component={() => <Login />} />
         </Switch>
         <Footer />
       </Router>
