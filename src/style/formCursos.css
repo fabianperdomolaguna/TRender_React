@@ -1,0 +1,8 @@
+.box-form{
+    border:1px; 
+    border-style:solid; 
+    border-color:#202020; 
+    background-color: rgba(77, 78, 78, 0.178);
+    padding: 1rem;
+    width: 400px;
+}
