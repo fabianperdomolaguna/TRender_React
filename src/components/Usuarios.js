@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {consultarDatabase} from '../conexion-bd/funciones';
+import {Link } from 'react-router-dom'
 
 function Usuarios() {
     const [listaUsuarios, setListaUsuarios] = useState([])
@@ -15,11 +16,13 @@ function Usuarios() {
                 <section class="content">
                     <div class="container-fluid">
                         <h1>Gestor de Usuarios y Roles</h1>
+                        <hr/>
                         <table id="TablaUsuarios" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th class="text-center">ID Usuario</th>
                                     <th class="text-center">Nombre</th>
+                                    <th class="text-center">Correo</th>
                                     <th class="text-center">Rol</th>
                                     <th class="text-center">Estado</th>
                                     <th class="text-center">Accion</th>
@@ -29,16 +32,21 @@ function Usuarios() {
 
                                 {
                                     listaUsuarios.map((usuario,index)=>{
-                                        console.log('Entro')
                                         return(
                                         <tr key={usuario.id}>
                                         <th class="text-center">{index + 1}</th>
                                         <td class="text-center">{usuario.nombre}</td>
+                                        <td class="text-center">{usuario.email}</td>
                                         <td class="text-center">{usuario.rol}</td>
                                         <td class="text-center">{usuario.estado}</td>
                                         <td class="text-center">
-                                            <button id="btnEditar" ><i class="fas fa-eye"></i></button>
-                                            <button id="btnEliminar"><i class="fas fa-edit"></i></button>
+                                            <Link class="btn btn-sm" 
+                                            ><i class="fas fa-eye"></i>
+                                            </Link>
+                                            <Link class="btn btn-sm"
+                                            to={`/usuarios/${usuario.id}`}
+                                            ><i class="fas fa-edit"></i>
+                                            </Link>
                                         </td>
                                     </tr>
                                     )
