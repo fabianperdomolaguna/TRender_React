@@ -8,11 +8,8 @@ import Ventas from "./components/Ventas";
 import Usuarios from "./components/Usuarios";
 import Roles from "./components/Roles";
 import Login from "./components/Login";
-<<<<<<< HEAD
 import editarUsuario from "./components/editarUsuario";
-=======
 import Form_Cursos from "./components/Form_Cursos";
->>>>>>> 665fd159b03c9ae503fbde492b3a776050393b94
 import './App.css';
 
 function App() {
