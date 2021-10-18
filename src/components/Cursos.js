@@ -15,7 +15,12 @@ function Cursos(){
         const eliminar = async () => {
             const respuestaEliminar = await eliminarDocumentoDatabase('cursos', event);
         }
-        eliminar();
+
+        if(window.confirm("De verdad quieres eliminar el curso?")) {
+            eliminar();
+        } else{
+            window.location.reload();
+        }
     }
 
     const [busqueda, setBusqueda] = useState('')
