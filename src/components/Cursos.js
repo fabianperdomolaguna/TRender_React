@@ -18,6 +18,25 @@ function Cursos(){
         eliminar();
     }
 
+    const [busqueda, setBusqueda] = useState('')
+
+    const Filter = (search, lista) => {
+        if (search == ''){
+            return lista
+        } else{
+            var expression = new RegExp(search, 'i');
+            var listFiletered = [];
+            lista.forEach ((C) => {
+                if (expression.test(C.Curso) || expression.test(C.Instructor)){
+                    listFiletered.push(C)
+                }
+            })
+            return listFiletered;
+        }
+    }
+
+    const cursos = Filter(busqueda, listaCursos);
+   
     return(
         <>
         <div className="content-wrapper">
@@ -30,7 +49,7 @@ function Cursos(){
                     <div className="row d-flex align-items-center justify-content-center">
                         <div className="col-sm-1 align-text-bottom"><h5>Buscar:</h5></div>
                         <div className="col-sm-5">
-                            <input id="stuff" type="text" className="form-control" placeholder="Nombre del Curso"/>
+                            <input id="busqueda" type="text" className="form-control" placeholder="Curso o Instructor" onChange={event => setBusqueda(event.target.value)}/>
                         </div>
                         <Link className="col" to='/form_cursos'>
                             <button className="btn btn-success" type="button">Agregar Curso</button>
@@ -54,7 +73,7 @@ function Cursos(){
                     </thead>
                     <tbody>
                         {
-                            listaCursos.map((curso) =>{
+                            cursos.map((curso) =>{
                                 return(
                                     <tr key={curso.id}>
                                         <th className="text-center">{curso.id}</th>
