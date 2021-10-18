@@ -1,15 +1,23 @@
 import React, {useState} from "react";
 import {Link, withRouter} from "react-router-dom"
-import {consultarDatabase} from '../conexion-bd/funciones';
+import {consultarDatabase, eliminarDocumentoDatabase} from '../conexion-bd/funciones';
 
 function Cursos(){
     const [listaCursos, setListaCursos] = useState([])
 
     const handleCargarDatos = async () => {
-        const listaTemporal = await consultarDatabase('cursos')
-        setListaCursos(listaTemporal)
+        const listaCursos = await consultarDatabase('cursos')
+        setListaCursos(listaCursos)
     }
     handleCargarDatos()
+
+    const deleteCurso = (event) => {
+        const eliminar = async () => {
+            const respuestaEliminar = await eliminarDocumentoDatabase('cursos', event);
+        }
+        eliminar();
+    }
+
     return(
         <>
         <div className="content-wrapper">
@@ -49,15 +57,15 @@ function Cursos(){
                             listaCursos.map((curso) =>{
                                 return(
                                     <tr key={curso.id}>
-                                        <th class="text-center">{curso.id}</th>
-                                        <td class="text-center">{curso.Curso}</td>
-                                        <td class="text-center">{curso.Area}</td>
-                                        <td class="text-center">{curso.Instructor}</td>
-                                        <td class="text-center">{curso.Costo}</td>
-                                        <td class="text-center">{curso.Estado}</td>
-                                        <td class="text-center">
-                                            <button onclick=""><i class="fas fa-edit"></i></button>
-                                            <button><i class="far fa-trash-alt"></i></button>
+                                        <th className="text-center">{curso.id}</th>
+                                        <td className="text-center">{curso.Curso}</td>
+                                        <td className="text-center">{curso.Area}</td>
+                                        <td className="text-center">{curso.Instructor}</td>
+                                        <td className="text-center">{curso.Costo}</td>
+                                        <td className="text-center">{curso.Estado}</td>
+                                        <td className="text-center">
+                                            <button className='btn btn-sm'><i className="fas fa-edit"></i></button>
+                                            <button value={curso.id} className='btn btn-sm' onClick={()=>deleteCurso(curso.id)}><i className="far fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 )

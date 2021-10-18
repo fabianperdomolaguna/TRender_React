@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../style/formCursos.css"
 import {guardarDatabase} from '../conexion-bd/funciones';
 
 function Form_Cursos(){
+
+    const history = useHistory();
 
     const saveCurso = (event) => {
         event.preventDefault();
@@ -21,9 +23,13 @@ function Form_Cursos(){
         }
 
         if(formData.Curso && formData.Area && formData.Instructor && formData.Costo && formData.Estado){
-            alert("El curso fue añadido satisfactoriamente")
             sendAnswer();
-        } 
+            alert("El curso fue añadido satisfactoriamente")
+        } else{
+            alert("Faltan campos por introducir")
+        }  
+
+        history.push('/cursos');
     }
 
     return(
@@ -65,9 +71,7 @@ function Form_Cursos(){
                 </div>
 
                 <div className="container mx-auto">
-                    <Link to='/cursos' className='mr-1'>
                         <button type="submit" className="btn btn-dark mr-3">Enviar</button>
-                    </Link>
                     <Link to='/cursos'>
                         <button type="reset" className="btn btn-dark">Cancelar</button>
                     </Link>
