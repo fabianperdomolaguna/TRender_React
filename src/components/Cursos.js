@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, withRouter} from "react-router-dom"
+import {Link} from "react-router-dom"
 import {consultarDatabase, eliminarDocumentoDatabase} from '../conexion-bd/funciones';
 
 function Cursos(){
@@ -40,16 +40,16 @@ function Cursos(){
 
                 <br/>
 
-                <table class="table table-striped">
-                    <thead class="table-dark">
+                <table className="table table-striped">
+                    <thead className="table-dark">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">Nombre del curso</th>
-                            <th class="text-center">Area</th>
-                            <th class="text-center">Instructor</th>
-                            <th class="text-center">Precio</th>
-                            <th class="text-center">Estado</th>
-                            <th class="text-center">Acción</th>
+                            <th className="text-center">ID</th>
+                            <th className="text-center">Nombre del curso</th>
+                            <th className="text-center">Area</th>
+                            <th className="text-center">Instructor</th>
+                            <th className="text-center">Precio</th>
+                            <th className="text-center">Estado</th>
+                            <th className="text-center">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,10 +61,12 @@ function Cursos(){
                                         <td className="text-center">{curso.Curso}</td>
                                         <td className="text-center">{curso.Area}</td>
                                         <td className="text-center">{curso.Instructor}</td>
-                                        <td className="text-center">{curso.Costo}</td>
+                                        <td className="text-center">${curso.Costo}</td>
                                         <td className="text-center">{curso.Estado}</td>
                                         <td className="text-center">
-                                            <button className='btn btn-sm'><i className="fas fa-edit"></i></button>
+                                            <Link to={`/editar_cursos/${curso.id}`}>
+                                                <button className='btn btn-sm'><i className="fas fa-edit"></i></button>
+                                            </Link>
                                             <button value={curso.id} className='btn btn-sm' onClick={()=>deleteCurso(curso.id)}><i className="far fa-trash-alt"></i></button>
                                         </td>
                                     </tr>

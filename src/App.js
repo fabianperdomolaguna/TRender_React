@@ -4,12 +4,13 @@ import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Cursos from "./components/Cursos";
+import Form_Cursos from "./components/Form_Cursos";
 import Ventas from "./components/Ventas";
 import Usuarios from "./components/Usuarios";
 import Roles from "./components/Roles";
 import Login from "./components/Login";
 import editarUsuario from "./components/editarUsuario";
-import Form_Cursos from "./components/Form_Cursos";
+import EditarCurso from "./components/EditarCurso";
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Switch>
           <Route path="/login" exact component={() => <Login />} />
           <Route path="/form_cursos" exact component={() => <Form_Cursos />} />
+          <Route exact path="/editar_cursos/:id" component={EditarCurso} />
           <div>
             <Dashboard />
             <Route path="/home" exact component={() => <Home />} />
