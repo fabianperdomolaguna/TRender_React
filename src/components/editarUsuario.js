@@ -42,6 +42,11 @@ function editarUsuario() {
             estado
         }
         await actualizarDocumentoDatabase('usuarios',id,usuario)
+        alert('Usuario modificado de manera exitosa')
+        history.push('/usuarios')
+    }
+    const handleCancelar = (e) => {
+        e.preventDefault()
         history.push('/usuarios')
     }
     return (
@@ -87,6 +92,7 @@ function editarUsuario() {
                                 </button>
                                 <button
                                 class="btn btn-outline-danger mt-2"
+                                onClick={handleCancelar}
                                 >
                                     Cancelar
                                 </button>
