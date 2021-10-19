@@ -43,9 +43,9 @@ function Usuarios() {
                                         <td class="text-center">{usuario.rol}</td>
                                         <td class="text-center">{usuario.estado}</td>
                                         <td class="text-center">
-                                            <Link class="btn btn-sm" 
+                                            {/* <Link class="btn btn-sm" 
                                             ><i class="fas fa-eye"></i>
-                                            </Link>
+                                            </Link> */}
                                             <Link class="btn btn-sm"
                                             to={`/usuarios/${usuario.id}`}
                                             ><i class="fas fa-edit"></i>
