@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {consultarDatabase} from '../conexion-bd/funciones';
 import {Link } from 'react-router-dom'
 
@@ -9,7 +9,10 @@ function Usuarios() {
         const listaTemporal = await consultarDatabase('usuarios')
         setListaUsuarios(listaTemporal)
     }
-    handleCargarDatos()
+    useEffect(()=>{
+        handleCargarDatos()
+    },[])
+   
     return (
         <>
             <div class="content-wrapper">
