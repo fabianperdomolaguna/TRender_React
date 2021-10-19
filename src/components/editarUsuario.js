@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { consultarDocumentoDatabase } from '../conexion-bd/funciones';
+import { useParams,useHistory } from 'react-router-dom';
+import { consultarDocumentoDatabase, actualizarDocumentoDatabase } from '../conexion-bd/funciones';
 
 
 function editarUsuario() {
@@ -18,6 +18,9 @@ function editarUsuario() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [estado, setEstado] = useState('')
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const history=useHistory()
+
     const consultarUsuario = async (idUsuario) => {
         const usuarioTemp = await consultarDocumentoDatabase('usuarios', idUsuario)
         console.log(usuarioTemp)
@@ -31,14 +34,24 @@ function editarUsuario() {
         consultarUsuario(id)
     }, [id])
 
+    const handleActualizarUsuario = async (e)=>{
+        e.preventDefault()
+        const usuario = {
+            nombre,
+            rol,
+            estado
+        }
+        await actualizarDocumentoDatabase('usuarios',id,usuario)
+        history.push('/usuarios')
+    }
     return (
         <>
             <div class="content-wrapper">
                 <section class="content">
-                    <div class="container-fluid">
+                    <div class="container">
                         <h1>Editar Usuario</h1>
                         <hr />
-                        <table id="TablaUsuarios" class="table table-striped">
+                        <table id="editarUsuarios" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th class="text-center">Nombre</th>
@@ -65,6 +78,19 @@ function editarUsuario() {
                                     </td>
                                 </tr>
                             </tbody>
+                            <tfoot class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button
+                                class="btn btn-success mt-2"
+                                onClick={handleActualizarUsuario}
+                                >
+                                    Actualizar
+                                </button>
+                                <button
+                                class="btn btn-outline-danger mt-2"
+                                >
+                                    Cancelar
+                                </button>
+                            </tfoot>
                         </table>
                     </div>
                 </section>
