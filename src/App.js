@@ -11,6 +11,7 @@ import Roles from "./components/Roles";
 import Login from "./components/Login";
 import editarUsuario from "./components/editarUsuario";
 import EditarCurso from "./components/EditarCurso";
+import registroUsuario from "./components/registroUsuario";
 import './App.css';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path="/usuarios" exact component={() => <Usuarios />} />
             <Route path="/roles" exact component={() => <Roles />} />
             <Route exact path="/usuarios/:id" component={editarUsuario} />
+            <Route exact path="/registro/:nuevousuario" component={registroUsuario} />
             <Footer />
           </div>
         </Switch>
