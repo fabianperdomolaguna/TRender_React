@@ -14,7 +14,7 @@ function Login(){
                         <h3><strong>TRender University</strong></h3>
                         <p className="mb-4">Aquí encontrarás los mejores cursos que te ayudarán en tu crecimiento profesional</p>
 
-                        <form action="#" method="post">
+                        <form id='Login'>
                             <div className="form-group first">
                                 <label for="username">Usuario</label>
                                 <input type="text" className="form-control" placeholder="email@gmail.com" id="username"/>
