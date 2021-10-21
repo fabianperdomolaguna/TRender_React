@@ -97,17 +97,15 @@ export const eliminarDocumentoDatabase = async (nombreColeccion, id) => {
 }
   
 // CrearUsuarios
-export const crearUsuario = async (email, password) => {
+export const crearUsuario = async (email, password, nombre) => {
   try {
     const credencialesUsuario = await createUserWithEmailAndPassword(auth, email, password)
-    console.log(credencialesUsuario);
-    console.log(credencialesUsuario.user);
-    console.log(credencialesUsuario.user.uid);
     const user = {
       id: credencialesUsuario.user.uid,
-      email: credencialesUsuario.user.email
+      correo: credencialesUsuario.user.email,
+      nombre
     }
-    guardarDatabase('listaUsuarios', user)
+    guardarDatabase('usuarios', user)
     return user
   } catch (e) {
     throw new Error(e)
