@@ -101,7 +101,6 @@ export const crearUsuario = async (email, password, nombre) => {
   try {
     const credencialesUsuario = await createUserWithEmailAndPassword(auth, email, password)
     const user = {
-      id: credencialesUsuario.user.uid,
       correo: credencialesUsuario.user.email,
       nombre
     }
