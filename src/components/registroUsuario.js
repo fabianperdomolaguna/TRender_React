@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { guardarDatabase, actualizarDocumentoDatabase } from '../conexion-bd/funciones';
+import { guardarDatabase, actualizarDocumentoDatabase, crearUsuario } from '../conexion-bd/funciones';
 import { Link, useHistory } from "react-router-dom";
 
 function registroUsuario() {
@@ -9,19 +9,13 @@ function registroUsuario() {
     const [nombre, setNombre] = useState("");
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
-
-    const usuario = {
-        nombre,
-        correo,
-        password
-    }
     
     const history=useHistory()
 
     const handleClick = async (e) => {
         e.preventDefault();
         if (nombre && correo && password) {
-            guardarDatabase('usuarios', usuario)
+            crearUsuario(correo,password,nombre)
             alert("Usuario registrado de forma exitosa")
             history.push('/')
         }else{
@@ -55,7 +49,7 @@ function registroUsuario() {
                     <div className="mb-3 container">
                         <label for="TextInput" className="form-label">Contraseña:</label>
                         <input type="password" id="password" className="form-control"
-                            placeholder="Ingrese su contraseña"
+                            placeholder="Ingrese su contraseña con al menos 6 digitos"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
