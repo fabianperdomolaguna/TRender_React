@@ -23,7 +23,7 @@ function Usuarios() {
                         <table id="TablaUsuarios" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
-                                    <th class="text-center">ID Usuario</th>
+                                    <th class="text-center">Indice</th>
                                     <th class="text-center">Nombre</th>
                                     <th class="text-center">Correo</th>
                                     <th class="text-center">Rol</th>
@@ -39,7 +39,7 @@ function Usuarios() {
                                         <tr key={usuario.id}>
                                         <th class="text-center">{index + 1}</th>
                                         <td class="text-center">{usuario.nombre}</td>
-                                        <td class="text-center">{usuario.email}</td>
+                                        <td class="text-center">{usuario.correo}</td>
                                         <td class="text-center">{usuario.rol}</td>
                                         <td class="text-center">{usuario.estado}</td>
                                         <td class="text-center">
