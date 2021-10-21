@@ -19,11 +19,13 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/login" exact component={() => <Login />} />
-          <Route path="/form_cursos" exact component={() => <Form_Cursos />} />
-          <Route exact path="/editar_cursos/:id" component={EditarCurso} />
+          
+          
           <div>
             <Dashboard />
+            <Route path="/form_cursos" exact component={() => <Form_Cursos />} />
+            <Route exact path="/editar_cursos/:id" component={EditarCurso} />
+            <Route path="/login" exact component={() => <Login />} />
             <Route path="/home" exact component={() => <Home />} />
             <Route path="/cursos" exact component={() => <Cursos />} />
             <Route path="/ventas" exact component={() => <Ventas />} />
