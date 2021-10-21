@@ -23,7 +23,6 @@ function editarUsuario() {
 
     const consultarUsuario = async (idUsuario) => {
         const usuarioTemp = await consultarDocumentoDatabase('usuarios', idUsuario)
-        console.log(usuarioTemp)
         setNombre(usuarioTemp.nombre)
         setRol(usuarioTemp.rol)
         setEstado(usuarioTemp.estado)
