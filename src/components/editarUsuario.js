@@ -76,7 +76,7 @@ function editarUsuario() {
                                     </td>
                                     <td class="text-center">
                                         <input
-                                            type="text" placeholder="Rol"
+                                            type="text" placeholder="Estado"
                                             value={estado}
                                             onChange = {(e)=>setEstado(e.target.value)}
                                         />
