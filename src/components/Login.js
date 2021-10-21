@@ -6,42 +6,43 @@ import { Link } from 'react-router-dom'
 function Login() {
     return (
         <>
-            <div className="d-lg-flex half">
-                <div className="bg order-1 order-md-2" style={{ backgroundImage: `url(${background})` }}></div>
-                <div className="contents order-2 order-md-1">
-                    <div className="container">
-                        <div className="row align-items-center justify-content-center">
-                            <div className="col-md-7">
+            <div class="d-lg-flex half justify-content-sm-center">
+                {/* <div class="bg order-1 order-md-2" style={{ backgroundImage: `url(${background})` }}></div> */}
+                <div class="contents order-2 order-md-1">
+                    <div class="container">
+                        <div class="row">
+                            <div class="box-form mx-auto">
                                 <h3><strong>TRender University</strong></h3>
-                                <p className="mb-4">Aquí encontrarás los mejores cursos que te ayudarán en tu crecimiento profesional</p>
+                                <p class="mb-4 text-black">Aquí encontrarás los mejores cursos que te ayudarán en tu crecimiento profesional</p>
 
                                 <form id='Login'>
-                                    <div className="form-group first">
-                                        <label for="username">Usuario</label>
+                                    <div class="form-group first">
+                                        <label class="text-black" for="username">Usuario</label>
                                         <input type="text" className="form-control" placeholder="email@gmail.com" id="username" />
                                     </div>
 
-                                    <div className="form-group last mb-3">
-                                        <label for="password">Contraseña</label>
-                                        <input type="password" className="form-control" placeholder="Tu contraseña" id="password" />
+                                    <div class="form-group last mb-3">
+                                        <label class="text-black" for="password">Contraseña</label>
+                                        <input type="password" className="form-control" placeholder="Ingresa tu contraseña" id="password" />
                                     </div>
 
-                                    <div className="d-flex mb-5 align-items-center">
-                                        <label className="control control--checkbox mb-0"><span className="caption">Recordar datos</span>
+                                    <div class="d-flex mb-5 align-items-center">
+                                        <label class="control control--checkbox mb-0">
+                                            <span class="caption text-black">Recordar datos</span>
                                             <input type="checkbox" />
-                                            <div className="control__indicator"></div>
+                                            <div class="control__indicator"></div>
                                         </label>
-                                        <span className="ml-auto"><a href="#" className="forgot-pass">¿Olvidó su contraseña?</a></span>
+                                        <span class="ml-auto"><a href="#" class="forgot-pass">¿Olvidó su contraseña?</a></span>
                                     </div>
 
-                                    <div className="social-author">
-                                        <Link class="btn btn-sm"
+                                    <div class="social-author">
+                                        <Link class="btn btn-sm text-black"
                                             to={`/registro/:nuevousuario`}>
                                             Registrarse
                                         </Link>
                                     </div>
 
-                                    <input type="submit" value="ACCEDER" className="btn btn-block btn-primary" />
+                                    <input type="submit" value="ACCEDER" class="btn btn-block btn-secondary" />
                                 </form>
                             </div>
                         </div>
