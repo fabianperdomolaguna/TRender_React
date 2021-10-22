@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { guardarDatabase, actualizarDocumentoDatabase, crearUsuario } from '../conexion-bd/funciones';
+import React, { useState} from 'react';
+import { crearUsuario } from '../conexion-bd/funciones';
 import { Link, useHistory } from "react-router-dom";
 
 function registroUsuario() {
@@ -17,7 +16,7 @@ function registroUsuario() {
         if (nombre && correo && password) {
             crearUsuario(correo,password,nombre)
             alert("Usuario registrado de forma exitosa")
-            history.push('/')
+            history.push('/Login')
         }else{
             alert("Faltan campos por introducir")
         }  
@@ -59,7 +58,7 @@ function registroUsuario() {
                         <button type="submit" className="btn btn-dark mr-3"
                             onClick={handleClick}
                         >Registrar</button>
-                        <Link to='/'>
+                        <Link to='/Login'>
                             <button type="reset" className="btn btn-dark">Cancelar</button>
                         </Link>
                     </div>
