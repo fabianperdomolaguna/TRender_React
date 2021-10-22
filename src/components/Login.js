@@ -1,13 +1,32 @@
-import React from "react";
-import background from "./img/Login.jpg"
+import React, { useState } from "react";
 import "../style/login.css"
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { loginUsuario } from "../conexion-bd/funciones";
 
 function Login() {
+
+    const[email,setEmail] = useState("");
+    const[password,setPassword] = useState("");
+    const history= useHistory()
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        if (email && password) {
+            try {
+                const user = await loginUsuario(email, password)
+                history.push('/')
+            } catch (error) {
+                alert("Usuario no existe. Revisar sus credenciales")
+            }
+        }else{
+            alert("Usuario o contraseña invalidos")
+        }  
+    }
+
+
     return (
         <>
-            <div class="d-lg-flex half justify-content-sm-center">
-                {/* <div class="bg order-1 order-md-2" style={{ backgroundImage: `url(${background})` }}></div> */}
+            <div class="justify-content-sm-center">
                 <div class="contents order-2 order-md-1">
                     <div class="container">
                         <div class="row">
@@ -17,32 +36,31 @@ function Login() {
 
                                 <form id='Login'>
                                     <div class="form-group first">
-                                        <label class="text-black" for="username">Usuario</label>
-                                        <input type="text" className="form-control" placeholder="email@gmail.com" id="username" />
+                                        <label class="text-black" for="username">Correo</label>
+                                        <input type="text" className="form-control" placeholder="Ingresa tu correo" id="username"
+                                        required 
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}/>
                                     </div>
 
                                     <div class="form-group last mb-3">
                                         <label class="text-black" for="password">Contraseña</label>
-                                        <input type="password" className="form-control" placeholder="Ingresa tu contraseña" id="password" />
-                                    </div>
-
-                                    <div class="d-flex mb-5 align-items-center">
-                                        <label class="control control--checkbox mb-0">
-                                            <span class="caption text-black">Recordar datos</span>
-                                            <input type="checkbox" />
-                                            <div class="control__indicator"></div>
-                                        </label>
-                                        <span class="ml-auto"><a href="#" class="forgot-pass">¿Olvidó su contraseña?</a></span>
+                                        <input type="password" className="form-control" placeholder="Ingresa tu contraseña" id="password"
+                                        required
+                                        value={password} 
+                                        onChange={(e) => setPassword(e.target.value)}/>
                                     </div>
 
                                     <div class="social-author">
-                                        <Link class="btn btn-sm text-black"
+                                        <Link class="btn btn-sm btn-outline-info text-black"
                                             to={`/registro/:nuevousuario`}>
                                             Registrarse
                                         </Link>
                                     </div>
-
-                                    <input type="submit" value="ACCEDER" class="btn btn-block btn-secondary" />
+                                    <br />
+                                    <input type="submit" value="ACCEDER" class="btn btn-block btn-secondary"
+                                    onClick={handleClick}
+                                    />
                                 </form>
                             </div>
                         </div>
