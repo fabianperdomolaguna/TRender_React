@@ -43,7 +43,7 @@ function App() {
         <Route exact path="/registro/:nuevousuario" component={registroUsuario} />
           <div>
             <Dashboard usuario = {firebaseUser} />
-            <Route path="/form_cursos" exact component={() => <Form_Cursos />} />
+            {<Route path="/form_cursos" exact component={() => <Form_Cursos />} />}
             <Route exact path="/editar_cursos/:id" component={EditarCurso} />
             <Route path="/home" exact component={() => <Home />} />
             <Route path="/cursos" exact component={() => <Cursos />} />
