@@ -19,7 +19,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const database = getFirestore();
-const auth = getAuth();
+export const auth = getAuth();
 export let usuario;
 
 // Guardar base de datos
@@ -161,48 +161,16 @@ export const datosUsuario = async () => {
   }
 }
 
-
-// //Validacion Usuario - Login
-// export const logOutUsuario = async () => {
-//   const formValidarUsuario = document.getElementById('login');
-//   formValidarUsuario.addEventListener('submit', async (e) => {
-//     e.preventDefault();
-//     const CodUsuario = document.getElementById('username');
-//     const ClavUsuario = document.getElementById('password');
-
-//     querySnapshot.forEach(doc => {
-//       if (CodUsuario == usuario.email) {
-//         if (ClavUsuario == usuario.password) {
-//           if (usuario.rol == "Estudiante") {
-//             //Redireccionar a compra de cursos
-//             //<script type="text/javascript">
-//               //window.location.href = "../../Cursos.js";
-//             //</script>
-//           } else {
-//             //Redireccionar a administrador
-//             //<script type="text/javascript">
-//               //window.location.href = "../../Dashboard.js";
-//             //</script>
-//           } else {
-//           swal("La contraseña es incorrecta", "Comuniquese con el administrador")
-//         } else {
-//           swal("El usuario no existe")
-//         }
-//       }
-//     }
-//   } 
-// }
-
-  
 // el.addEventListener('click', function)
 // Usuario Activo
-// onAuthStateChanged(auth, (user) => {
-  
-//   if (user) {
-//     usuario = user
-//     console.log('El usuario logueado');
-//   } else {
-//     console.log('El usuario ya no esta logueado');
-//     usuario = undefined
-//   }
-// }
+onAuthStateChanged(auth, (user) => {
+
+  if (user) {
+    usuario = user
+    console.log('El usuario logueado');
+  } else {
+    console.log('El usuario ya no esta logueado');
+    usuario = undefined
+  }
+
+})
