@@ -8,6 +8,8 @@ function registroUsuario() {
     const [nombre, setNombre] = useState("");
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
+    const [rol,setRol] = useState("");
+    const [estado, setEstado] = useState("");
     
     const history=useHistory()
 
