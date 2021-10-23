@@ -1,10 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Link, withRouter } from "react-router-dom"
 import { logOutUsuario } from '../conexion-bd/funciones';
-=======
 import { Link, NavLink, withRouter } from "react-router-dom"
->>>>>>> 1ff370fa1b2ba5bb0f11b1d26207d4e8c2767851
 
 
 const handleLogOut = () => {
