@@ -18,7 +18,7 @@ import { auth } from "./conexion-bd/funciones";
 
 function App() {
 
-  const [firebaseUser,setFirebaseUser] = useState(false)
+  const [firebaseUser, setFirebaseUser] = useState(false)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -34,15 +34,16 @@ function App() {
       }
     })
   }, [setFirebaseUser])
-  
+
   return (
     <div className="App">
       <Router>
         <Switch>
-        <Route path="/login" exact component={() => <Login />} />
-        <Route exact path="/registro/:nuevousuario" component={registroUsuario} />
+
           <div>
-            <Dashboard usuario = {firebaseUser} />
+            <Dashboard usuario={firebaseUser} />
+            <Route path="/login" exact component={() => <Login />} />
+            <Route exact path="/registro/:nuevousuario" component={registroUsuario} />
             {<Route path="/form_cursos" exact component={() => <Form_Cursos />} />}
             <Route exact path="/editar_cursos/:id" component={EditarCurso} />
             <Route path="/home" exact component={() => <Home />} />
