@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { crearUsuario } from '../conexion-bd/funciones';
 import { Link, useHistory } from "react-router-dom";
 
@@ -8,20 +8,18 @@ function registroUsuario() {
     const [nombre, setNombre] = useState("");
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
-    const [rol,setRol] = useState("");
-    const [estado, setEstado] = useState("");
-    
-    const history=useHistory()
+
+    const history = useHistory()
 
     const handleClick = async (e) => {
         e.preventDefault();
-        if (nombre && correo && password) {
-            crearUsuario(correo,password,nombre)
+        if (nombre && correo && password && password.length >= 6) {
+            crearUsuario(correo, password, nombre)
             alert("Usuario registrado de forma exitosa")
-            history.push('/Login')
+            history.push('/home')
         }else{
-            alert("Faltan campos por introducir")
-        }  
+            alert("Verifique que todos los campos esten completos y que la contraseña sea mayor o igual a 6 digitos")
+        }
     }
 
     return (
