@@ -59,7 +59,6 @@ const Dashboard = ({ usuario }) => {
                         </div>)
                 }
                 <nav className="mt-2">
-<<<<<<< HEAD
                     {!!usuario &&
                         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li className='nav-item'>
@@ -88,34 +87,6 @@ const Dashboard = ({ usuario }) => {
                             </li>
                         </ul>
                     }
-=======
-                    <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li className='nav-item'>
-                            <NavLink className="nav-link" to="/cursos">
-                                <i className='nav-icon fas fa-chart-pie'></i>
-                                <p>Cursos<i className="right fas fa-angle-right"></i></p>
-                            </NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className="nav-link" to="/ventas">
-                                <i className='nav-icon fas fa-tree'></i>
-                                <p>Venta de Cursos<i className="right fas fa-angle-right"></i></p>
-                            </NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className="nav-link" to="/usuarios">
-                                <i className='nav-icon fas fa-edit'></i>
-                                <p>Usuarios<i className="right fas fa-angle-right"></i></p>
-                            </NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className="nav-link" to="/roles">
-                                <i className='nav-icon fas fa-table'></i>
-                                <p>Roles<i className="right fas fa-angle-right"></i></p>
-                            </NavLink>
-                        </li>
-                    </ul>
->>>>>>> 1ff370fa1b2ba5bb0f11b1d26207d4e8c2767851
                 </nav>
             </aside>
         </>
