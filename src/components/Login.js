@@ -16,7 +16,7 @@ function Login() {
                 const user = await loginUsuario(email, password)
                 history.push('/home')
             } catch (error) {
-                alert("Usuario no existe. Revisar sus credenciales")
+                alert("Usuario o contraseña invalidos")
             }
         } else {
             alert("Usuario o contraseña invalidos")
