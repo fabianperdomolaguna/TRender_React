@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom"
 
+
 const Login_button = (props) => {
     const user_state = props.user_state;
     if (user_state){
@@ -69,7 +70,8 @@ const Dashboard = (props) => {
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className="nav-link" to="/">
+                        <Link className="nav-link" to="/Ventas">
+                            
                             <i className='nav-icon fas fa-tree'></i>
                             <p>Venta de Cursos<i className="right fas fa-angle-right"></i></p>
                         </Link>

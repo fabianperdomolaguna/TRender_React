@@ -5,3 +5,29 @@
 .Paragraph_120{
   font-size: 110%;
 }
+
+
+.buttonRegistrarVentas{
+  margin-left: 1rem; 
+  font-size: 40%;
+
+}
+.styleTable{
+  font-size: 40%;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin-top: 13rem;
+  margin-left: 60rem; 
+
+}
+
+.table-scroll {
+  /* height:700px; */
+  overflow:auto;  
+
+}
+
+

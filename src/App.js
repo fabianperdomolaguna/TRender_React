@@ -29,7 +29,6 @@ function App() {
             <Route path="/usuarios" exact component={() => <Usuarios />} />
             <Route path="/roles" exact component={() => <Roles />} />
             <Route exact path="/usuarios/:id" component={editarUsuario} />
-            <Footer />
           </div>
         </Switch>
       </Router>
