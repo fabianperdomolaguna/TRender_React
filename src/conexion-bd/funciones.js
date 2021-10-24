@@ -161,7 +161,7 @@ export const datosUsuario = async () => {
   }
 }
 
-<<<<<<< HEAD
+
 
 //Validacion Usuario - Login
 export const logOutUsuario = async () => {
@@ -197,13 +197,12 @@ export const logOutUsuario = async () => {
   })
 
 
-=======
->>>>>>> 0de528afb5faa014b8afebea3c9fc53c2b0b2097
+
 // el.addEventListener('click', function)
 // Usuario Activo
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, () => {
 
-<<<<<<< HEAD
+  var  user = 'Estiven'
     if (user) {
       usuario = user
       console.log('El usuario logueado');
@@ -215,7 +214,7 @@ onAuthStateChanged(auth, (user) => {
 
 // export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
 export const getVentas = async () =>  await getDocs(query(collection(database, 'ventas'),orderBy("NumeroVenta", 'desc')))
-=======
+var  user = 'Estiven'
   if (user) {
     usuario = user
     console.log('El usuario logueado');
@@ -224,5 +223,5 @@ export const getVentas = async () =>  await getDocs(query(collection(database, '
     usuario = undefined
   }
 
-})
->>>>>>> 0de528afb5faa014b8afebea3c9fc53c2b0b2097
+
+

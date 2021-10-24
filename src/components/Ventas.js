@@ -10,7 +10,6 @@ function Ventas() {
     const cargarDatos = async () => {
         await accionAsincrona();
         const cadena = `
-      
             <table id='TablaVentas' class="table table-striped" >
                 <thead class="table-dark text-center">
                     <tr>
@@ -22,7 +21,7 @@ function Ventas() {
                         <th>Total</th>
                         <th>Vendedor</th>
                         <th>Estado</th>
-                        <th>Accion</th>s
+                        <th>Accion</th>
                     </tr>
                 </thead>
             </table>`
@@ -86,8 +85,6 @@ function Ventas() {
                     <div id='ventas' className="table-scroll styleTable" />
                     <div />
                 </h1>
-
-
             </div>
             <Spinner id="spinner" className='lds-dual-ring' color="success" />
         </>
