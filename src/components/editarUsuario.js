@@ -23,7 +23,6 @@ function editarUsuario() {
 
     const consultarUsuario = async (idUsuario) => {
         const usuarioTemp = await consultarDocumentoDatabase('usuarios', idUsuario)
-        console.log(usuarioTemp)
         setNombre(usuarioTemp.nombre)
         setRol(usuarioTemp.rol)
         setEstado(usuarioTemp.estado)
@@ -76,7 +75,7 @@ function editarUsuario() {
                                     </td>
                                     <td class="text-center">
                                         <input
-                                            type="text" placeholder="Rol"
+                                            type="text" placeholder="Estado"
                                             value={estado}
                                             onChange = {(e)=>setEstado(e.target.value)}
                                         />

@@ -19,7 +19,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const database = getFirestore();
-const auth = getAuth();
+export const auth = getAuth();
 export let usuario;
 
 // Guardar base de datos
@@ -97,17 +97,14 @@ export const eliminarDocumentoDatabase = async (nombreColeccion, id) => {
 }
 
 // CrearUsuarios
-export const crearUsuario = async (email, password) => {
+export const crearUsuario = async (email, password, nombre) => {
   try {
     const credencialesUsuario = await createUserWithEmailAndPassword(auth, email, password)
-    console.log(credencialesUsuario);
-    console.log(credencialesUsuario.user);
-    console.log(credencialesUsuario.user.uid);
     const user = {
-      id: credencialesUsuario.user.uid,
-      email: credencialesUsuario.user.email
+      correo: credencialesUsuario.user.email,
+      nombre
     }
-    guardarDatabase('listaUsuarios', user)
+    guardarDatabase('usuarios', user)
     return user
   } catch (e) {
     throw new Error(e)
@@ -164,6 +161,7 @@ export const datosUsuario = async () => {
   }
 }
 
+<<<<<<< HEAD
 
 //Validacion Usuario - Login
 export const logOutUsuario = async () => {
@@ -199,10 +197,13 @@ export const logOutUsuario = async () => {
   })
 
 
+=======
+>>>>>>> 0de528afb5faa014b8afebea3c9fc53c2b0b2097
 // el.addEventListener('click', function)
 // Usuario Activo
 onAuthStateChanged(auth, (user) => {
 
+<<<<<<< HEAD
     if (user) {
       usuario = user
       console.log('El usuario logueado');
@@ -214,3 +215,14 @@ onAuthStateChanged(auth, (user) => {
 
 // export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
 export const getVentas = async () =>  await getDocs(query(collection(database, 'ventas'),orderBy("NumeroVenta", 'desc')))
+=======
+  if (user) {
+    usuario = user
+    console.log('El usuario logueado');
+  } else {
+    console.log('El usuario ya no esta logueado');
+    usuario = undefined
+  }
+
+})
+>>>>>>> 0de528afb5faa014b8afebea3c9fc53c2b0b2097

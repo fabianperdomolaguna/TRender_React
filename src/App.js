@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
@@ -11,18 +11,41 @@ import Roles from "./components/Roles";
 import Login from "./components/Login";
 import editarUsuario from "./components/editarUsuario";
 import EditarCurso from "./components/EditarCurso";
+import registroUsuario from "./components/registroUsuario";
 import './App.css';
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "./conexion-bd/funciones";
 
 function App() {
+
+  const [firebaseUser, setFirebaseUser] = useState(false)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+        const usuario = {
+          id: user.uid,
+          email: user.email
+        }
+        setFirebaseUser(usuario)
+      } else {
+        setFirebaseUser(null)
+      }
+    })
+  }, [setFirebaseUser])
+
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/login" exact component={() => <Login />} />
-          <Route path="/form_cursos" exact component={() => <Form_Cursos />} />
-          <Route exact path="/editar_cursos/:id" component={EditarCurso} />
+
           <div>
-            <Dashboard />
+            <Dashboard usuario={firebaseUser} />
+            <Route path="/login" exact component={() => <Login />} />
+            <Route exact path="/registro/:nuevousuario" component={registroUsuario} />
+            {<Route path="/form_cursos" exact component={() => <Form_Cursos />} />}
+            <Route exact path="/editar_cursos/:id" component={EditarCurso} />
             <Route path="/home" exact component={() => <Home />} />
             <Route path="/cursos" exact component={() => <Cursos />} />
             <Route path="/ventas" exact component={() => <Ventas />} />
