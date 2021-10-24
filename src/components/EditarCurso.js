@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { consultarDocumentoDatabase, actualizarDocumentoDatabase } from '../conexion-bd/funciones';
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../style/formCursos.css"
 
 function EditarCurso() {
@@ -28,6 +28,25 @@ function EditarCurso() {
     useEffect(() => {
         consultarCurso(id)
     }, [id])
+
+    const handleCancelar = (e) => {
+        e.preventDefault()
+        history.push('/cursos')
+    }
+
+    const handleActualizarCurso = async (e)=>{
+        e.preventDefault()
+        const updatedCurso = {
+            Curso,
+            Area,
+            Instructor,
+            Costo,
+            Estado
+        }
+        await actualizarDocumentoDatabase('cursos', id, updatedCurso)
+        alert('Curso modificado de manera exitosa')
+        history.push('/cursos')
+    }
 
     const updateCurso = (event) => {
         event.preventDefault();
@@ -56,49 +75,59 @@ function EditarCurso() {
 
     return(
         <>
-        <h3 className="text-center text-black pt-5">Formulario Editar Cursos</h3>
-        <div className="box-form mx-auto">
-            <form onSubmit={updateCurso}>
-                <div class="mb-3 container">
-                    <label for="TextInput" className="form-label">Nombre del Curso</label>
-                    <input type="text" id="Curso" className="form-control" value={Curso} onChange={e =>setCurso(e.target.value)}/>
-                </div>
+        <div className="content-wrapper">
+            <section className="content">
+                <div className="container">
+                    <h1>Editar Curso</h1>
+                    <hr />
+                    <table id="editarCursos" className="table table-striped">
+                        <thead className="table-dark">
+                            <tr>
+                                <th className="text-center">Nombre del Curso</th>
+                                <th className="text-center">Area</th>
+                                <th className="text-center">Instructor</th>
+                                <th className="text-center">Precio</th>
+                                <th className="text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td class="text-center">
+                                <input className="form-control" type="text" value={Curso} onChange={e =>setCurso(e.target.value)}/>
+                            </td>
 
-                <div class="mb-3 container">
-                    <label for="Select" className="form-label">Area</label>
-                    <select id="Area" className="form-select" value={Area} onChange={e =>setArea(e.target.value)}>
-                        <option>OOP</option>
-                        <option>Móvil</option>
-                        <option>Web</option>
-                        <option>Desarrollo de Software</option>
-                    </select>
-                </div>
+                            <td class="text-center">
+                                <select className="form-control" value={Area} onChange={e =>setArea(e.target.value)}>
+                                    <option>OOP</option>
+                                    <option>Móvil</option>
+                                    <option>Web</option>
+                                    <option>Desarrollo de Software</option>
+                                </select>
+                            </td>
 
-                <div className="mb-3 container">
-                    <label for="TextInput" className="form-label">Instructor</label>
-                    <input type="text" id="Instructor" className="form-control" value={Instructor} onChange={e =>setInstructor(e.target.value)}/>
-                </div>
+                            <td class="text-center">
+                                <input className="form-control" type="text" value={Instructor} onChange={e =>setInstructor(e.target.value)}/>
+                            </td>
 
-                <div className="mb-3 container">
-                    <label for="TextInput" className="form-label">Precio</label>
-                    <input type="text" id="Costo" className="form-control" value={Costo} onChange={e =>setCosto(e.target.value)}/>
-                </div>
+                            <td class="text-center">
+                                <input className="form-control" type="text" value={Costo} onChange={e =>setCosto(e.target.value)}/>
+                            </td>
 
-                <div className="mb-3 container">
-                    <label for="Select" className="form-label">Estado</label>
-                    <select id="Estado" className="form-select" value={Estado} onChange={e =>setEstado(e.target.value)}>
-                        <option>Activo</option>
-                        <option>Cancelado</option>
-                    </select>
+                            <td class="text-center">
+                                <select className="form-control" value={Estado} onChange={e =>setEstado(e.target.value)}>
+                                    <option>Activo</option>
+                                    <option>Cancelado</option>
+                                </select>
+                            </td>
+                            </tr>
+                        </tbody>
+                        <tfoot className="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button className="btn btn-success mt-2" onClick={handleActualizarCurso}>Actualizar</button>
+                            <button className="btn btn-danger mt-2" onClick={handleCancelar}>Cancelar</button>
+                        </tfoot>
+                    </table>
                 </div>
-
-                <div className="container mx-auto">
-                        <button type="submit" className="btn btn-dark mr-3">Actualizar</button>
-                    <Link to='/cursos'>
-                        <button type="reset" className="btn btn-dark">Cancelar</button>
-                    </Link>
-                </div>
-            </form>
+            </section>
         </div>
         </>
     )
