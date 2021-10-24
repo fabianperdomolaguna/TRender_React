@@ -4,22 +4,9 @@ import { Link, NavLink, withRouter } from "react-router-dom"
 
 
 function Dashboard({ usuario }) {
-    const Login_button = (props) => {
-        const user_state = props.user_state;
-        if (user_state) {
-            return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-dark">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </button>)
-        } else {
-            return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-danger">Logout</button>)
-        }
-    }
     const handleLogOut = () => {
         logOutUsuario()
-
     }
-
-
 
     console.log(usuario);
     return (
@@ -27,11 +14,18 @@ function Dashboard({ usuario }) {
 
             <nav className="main-header navbar navbar-expand navbar-white navbar-light">
                 <ul className="navbar-nav ml-auto">
-                    <Link className="nav-item" to="/login">
-                        <button type="button" className="btn btn-dark">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </button>
-                    </Link>
+                    {
+                        !usuario ? (
+                            <Link className="nav-item" to="/login">
+                                <button type="button" className="btn btn-dark">
+                                    <i class="fas fa-sign-in-alt"></i> LogIn
+                                </button>
+                            </Link>)
+                            :
+                            (<Link className="nav-item" to="/login">
+                                <button type="button" className="btn btn-danger" onClick={handleLogOut}>LogOut</button>
+                            </Link>)
+                    }
                 </ul>
             </nav>
 
@@ -76,27 +70,6 @@ function Dashboard({ usuario }) {
                             <p>Roles<i className="right fas fa-angle-right"></i></p>
                         </Link>
                     </li>
-
-                    {/* <nav className="main-header navbar navbar-expand navbar-white navbar-light">
-                    <ul className="navbar-nav ml-auto">
-                        {
-                            !usuario ? (
-                                <Link className="nav-item" to="/login">
-                                    <button type="button" className="btn btn-dark">
-                                        <i class="fas fa-sign-in-alt"></i> LogIn
-                                    </button>
-                                </Link>)
-                                :
-                                (<Link className="nav-item" to="/login">
-                                    <button type="button" className="btn btn-danger"
-                                        onClick={handleLogOut}
-                                    >LogOut
-                                    </button>
-                                </Link>)
-                        }
-
-                    </ul>
-                </nav> */}
                 </nav>
             </aside>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
