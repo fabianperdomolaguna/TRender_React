@@ -48,11 +48,10 @@ function App() {
             <Route exact path="/editar_cursos/:id" component={EditarCurso} />
             <Route path="/home" exact component={() => <Home />} />
             <Route path="/cursos" exact component={() => <Cursos />} />
-            <Route path="/ventas" exact component={() => <Ventas />} />
+            <Route path="/Ventas" exact component={() => <Ventas />} />
             <Route path="/usuarios" exact component={() => <Usuarios />} />
             <Route path="/roles" exact component={() => <Roles />} />
             <Route exact path="/usuarios/:id" component={editarUsuario} />
-            <Footer />
           </div>
         </Switch>
       </Router>
