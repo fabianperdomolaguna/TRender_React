@@ -5,7 +5,7 @@ import { getFirestore } from 'firebase/firestore'
 // Referencia al paquete de autenticacion
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 // Metodos de interaccion con la base de datos
-import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc,orderBy } from 'firebase/firestore'
+import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDf5UIMl-yWAgMAMxVNodeh2mOcQf6R5dM",
@@ -132,15 +132,15 @@ export const loginUsuario = async (email, password) => {
 
 
 // LogOut -> salir
-// export const logOutUsuario = async () => {
-//   try {
-//     const respuesta = await signOut(auth)
-//     console.log(respuesta);
-//     console.log('Me sali...!');
-//   } catch (e) {
-//     throw new Error(e)
-//   }
-// }
+export const logOutUsuario = async () => {
+  try {
+    const respuesta = await signOut(auth)
+    console.log(respuesta);
+    console.log('Me sali...!');
+  } catch (e) {
+    throw new Error(e)
+  }
+}
 
 //  datos usuario
 export const datosUsuario = async () => {
@@ -163,38 +163,38 @@ export const datosUsuario = async () => {
 
 
 
-//Validacion Usuario - Login
-export const logOutUsuario = async () => {
-  const formValidarUsuario = document.getElementById('login');
-  formValidarUsuario.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const CodUsuario = document.getElementById('username');
-    const ClavUsuario = document.getElementById('password');
+// //Validacion Usuario - Login
+// export const logOutUsuario = async () => {
+//   const formValidarUsuario = document.getElementById('login');
+//   formValidarUsuario.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     const CodUsuario = document.getElementById('username');
+//     const ClavUsuario = document.getElementById('password');
 
-    // querySnapshot.forEach(doc => {
-    //   if (CodUsuario == usuario.email) {
-    //     if (ClavUsuario == usuario.password) {
-    //       if (usuario.rol == "Estudiante") {
-    //         //Redireccionar a compra de cursos
-    //         //<script type="text/javascript">
-    //         //window.location.href = "../../Cursos.js";
-    //         //</script>
-    //       } 
-    //       else if ('condition') {
-    //         //Redireccionar a administrador
-    //         //<script type="text/javascript">
-    //         //window.location.href = "../../Dashboard.js";
-    //         //</script>
-    //       } 
-    //       else if ('condition') {
-    //         // swal("La contraseña es incorrecta", "Comuniquese con el administrador")
-    //       } else {
-    //         // swal("El usuario no existe")
-    //       }
-    //     }
-    //   }
-    // })
-  })
+//     // querySnapshot.forEach(doc => {
+//     //   if (CodUsuario == usuario.email) {
+//     //     if (ClavUsuario == usuario.password) {
+//     //       if (usuario.rol == "Estudiante") {
+//     //         //Redireccionar a compra de cursos
+//     //         //<script type="text/javascript">
+//     //         //window.location.href = "../../Cursos.js";
+//     //         //</script>
+//     //       } 
+//     //       else if ('condition') {
+//     //         //Redireccionar a administrador
+//     //         //<script type="text/javascript">
+//     //         //window.location.href = "../../Dashboard.js";
+//     //         //</script>
+//     //       } 
+//     //       else if ('condition') {
+//     //         // swal("La contraseña es incorrecta", "Comuniquese con el administrador")
+//     //       } else {
+//     //         // swal("El usuario no existe")
+//     //       }
+//     //     }
+//     //   }
+//     // })
+//   })
 
 
 
@@ -202,19 +202,7 @@ export const logOutUsuario = async () => {
 // Usuario Activo
 onAuthStateChanged(auth, () => {
 
-  var  user = 'Estiven'
-    if (user) {
-      usuario = user
-      console.log('El usuario logueado');
-    } else {
-      console.log('El usuario ya no esta logueado');
-      usuario = undefined
-    }
-  })}
-
-// export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
-export const getVentas = async () =>  await getDocs(query(collection(database, 'ventas'),orderBy("NumeroVenta", 'desc')))
-var  user = 'Estiven'
+  var user = 'Estiven'
   if (user) {
     usuario = user
     console.log('El usuario logueado');
@@ -222,6 +210,18 @@ var  user = 'Estiven'
     console.log('El usuario ya no esta logueado');
     usuario = undefined
   }
+})}
+
+// export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
+export const getVentas = async () => await getDocs(query(collection(database, 'ventas'), orderBy("NumeroVenta", 'desc')))
+var user = 'Estiven'
+if (user) {
+  usuario = user
+  console.log('El usuario logueado');
+} else {
+  console.log('El usuario ya no esta logueado');
+  usuario = undefined
+}
 
 
 
