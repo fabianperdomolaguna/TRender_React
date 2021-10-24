@@ -43,7 +43,7 @@ const Dashboard = ({ usuario }) => {
                         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                             <div className="image"><img src="User1.jpg" className="img-circle elevation-2" alt="User Image" /></div>
                             <div className="info">
-                                <a href="#" className="d-block">NO LOGUEADO</a>
+                                <label className = "text-white">NO LOGUEADO</label>
                             </div>
                         </div>
                     </div>)
@@ -53,7 +53,7 @@ const Dashboard = ({ usuario }) => {
                             <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                                 <div className="image"><img src="User1.jpg" className="img-circle elevation-2" alt="User Image" /></div>
                                 <div className="info">
-                                    <a href="#" className="d-block">LOGUEADO</a>
+                                    <label className = "text-white">LOGUEADO</label>
                                 </div>
                             </div>
                         </div>)
