@@ -4,16 +4,16 @@ import { Link, NavLink, withRouter } from "react-router-dom"
 
 
 function Dashboard({ usuario }) {
-    const Login_button = (props) => {
-        const user_state = props.user_state;
-        if (user_state) {
-            return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-dark">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </button>)
-        } else {
-            return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-danger">Logout</button>)
-        }
-    }
+    // const Login_button = (props) => {
+    //     const user_state = props.user_state;
+    //     if (user_state) {
+    //         return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-dark">
+    //             <i class="fas fa-sign-in-alt"></i> Login
+    //         </button>)
+    //     } else {
+    //         return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-danger">Logout</button>)
+    //     }
+    // }
     const handleLogOut = () => {
         logOutUsuario()
 
@@ -77,7 +77,7 @@ function Dashboard({ usuario }) {
                         </Link>
                     </li>
 
-                    {/* <nav className="main-header navbar navbar-expand navbar-white navbar-light">
+                    <nav className="main-header navbar navbar-expand navbar-white navbar-light">
                     <ul className="navbar-nav ml-auto">
                         {
                             !usuario ? (
@@ -96,7 +96,7 @@ function Dashboard({ usuario }) {
                         }
 
                     </ul>
-                </nav> */}
+                </nav> 
                 </nav>
             </aside>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
