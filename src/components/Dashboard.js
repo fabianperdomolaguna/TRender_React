@@ -1,22 +1,9 @@
 import React from 'react';
 import { logOutUsuario } from '../conexion-bd/funciones';
-import { Link, NavLink, withRouter } from "react-router-dom"
+import { Link,withRouter } from "react-router-dom"
 
 
 function Dashboard({ usuario }) {
-<<<<<<< HEAD
-    // const Login_button = (props) => {
-    //     const user_state = props.user_state;
-    //     if (user_state) {
-    //         return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-dark">
-    //             <i class="fas fa-sign-in-alt"></i> Login
-    //         </button>)
-    //     } else {
-    //         return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-danger">Logout</button>)
-    //     }
-    // }
-=======
->>>>>>> 00b02d21eb465789dcc5b5d3a01529f09a88bf40
     const handleLogOut = () => {
         logOutUsuario()
     }
@@ -52,7 +39,7 @@ function Dashboard({ usuario }) {
                     <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div className="image"><img src="User1.jpg" className="img-circle elevation-2" alt="User Image" /></div>
                         <div className="info">
-                            <a href="#" className="d-block">USUARIO LOGUEADO</a>
+                            <label className="text-black">USUARIO LOGUEADO</label>
                         </div>
                     </div>
                 </div>
@@ -83,7 +70,6 @@ function Dashboard({ usuario }) {
                             <p>Roles<i className="right fas fa-angle-right"></i></p>
                         </Link>
                     </li>
-<<<<<<< HEAD
 
                     <nav className="main-header navbar navbar-expand navbar-white navbar-light">
                     <ul className="navbar-nav ml-auto">
@@ -105,8 +91,6 @@ function Dashboard({ usuario }) {
 
                     </ul>
                 </nav> 
-=======
->>>>>>> 00b02d21eb465789dcc5b5d3a01529f09a88bf40
                 </nav>
             </aside>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
