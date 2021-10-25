@@ -4,9 +4,20 @@ import { Spinner } from 'reactstrap';
 import { Link } from "react-router-dom"
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import { getVentas } from '../conexion-bd/funciones';
+// import React, { useState } from 'react';
+
 
 
 function Ventas() {
+//     const [show, setShow] = useState(false);
+//     const handleModalClose = (e) => {
+//         setShow(false);
+//       };
+      
+//       const handleModalOpen = () => {
+//         setShow(true);
+//       };
+
     const cargarDatos = async () => {
         await accionAsincrona();
         const cadena = `
@@ -25,7 +36,7 @@ function Ventas() {
                     </tr>
                 </thead>
             </table>`
-      
+
         document.getElementById('ventas').innerHTML = cadena;
         const tableVentas = document.getElementById('TablaVentas');
         const querySnapshot = await getVentas();
@@ -77,11 +88,9 @@ function Ventas() {
 
                 <h1 className="card-header text-align: right "> <i className="fas fa-cart-plus"></i>
                     Ventas
-                    <button type="button" className=" buttonRegistrarVentas text-center btn btn-success btn-rounded btn-sm my-0 " value="Agregar"
-                        onclick="location.href='/templates/ventas/registrar_venta.html'"
-                        onmouseover="this.style.cursor='hand'">
-                        Registrar Venta
-                    </button>
+                    <Link className="col" to='/registrar_ventas'>
+                        <button className="btn btn-success" type="button">  Registrar Venta</button>
+                    </Link>
                     <div id='ventas' className="table-scroll styleTable" />
                     <div />
                 </h1>

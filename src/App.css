@@ -30,4 +30,20 @@
 
 }
 
+.divPrinciplaRV{
+  width: 101rem;
+  left: -15rem;
+  top:1rem;
 
+
+}
+.inputSO{
+  max-width: 141px; 
+  left: 1.7rem; 
+  top:1rem
+}
+
+.inputClient{
+  left: 2rem; 
+  top:1rem
+}
