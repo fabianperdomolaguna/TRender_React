@@ -1,6 +1,6 @@
 import React from "react";
 import '../App.css';
-import { Spinner } from 'reactstrap';
+//import { Spinner } from 'reactstrap';
 import { Link } from "react-router-dom"
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import { getVentas } from '../conexion-bd/funciones';
@@ -40,7 +40,7 @@ function Ventas() {
         document.getElementById('ventas').innerHTML = cadena;
         const tableVentas = document.getElementById('TablaVentas');
         const querySnapshot = await getVentas();
-        document.getElementById("spinner").style.display = "none";
+        //document.getElementById("spinner").style.display = "none";
         var count = 0;
         querySnapshot.forEach(doc => {
             count += 1;
@@ -95,7 +95,7 @@ function Ventas() {
                     <div />
                 </h1>
             </div>
-            <Spinner id="spinner" className='lds-dual-ring' color="success" />
+            {/* <Spinner id="spinner" className='lds-dual-ring' color="success" /> */}
         </>
     )
 }
