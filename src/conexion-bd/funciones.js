@@ -116,13 +116,13 @@ export const loginUsuario = async (email, password) => {
   try {
     const credencialesUsuario = await signInWithEmailAndPassword(auth, email, password)
     // console.log(credencialesUsuario);
-    // console.log(credencialesUsuario.user);
+     console.log(credencialesUsuario.user);
     // console.log(credencialesUsuario.user.uid);
-    // const user = {
-    //   id: credencialesUsuario.user.uid,
-    //   email: credencialesUsuario.user.email
-    // }
-    // usuario = user
+    const user = {
+      id: credencialesUsuario.user.uid,
+      email: credencialesUsuario.user.email
+    }
+    usuario = user
 
     return credencialesUsuario.user
   } catch (e) {
@@ -202,7 +202,6 @@ export const datosUsuario = async () => {
 // Usuario Activo
 onAuthStateChanged(auth, () => {
 
-  var user = 'Estiven'
   if (user) {
     usuario = user
     console.log('El usuario logueado');
@@ -210,7 +209,7 @@ onAuthStateChanged(auth, () => {
     console.log('El usuario ya no esta logueado');
     usuario = undefined
   }
-})}
+})
 
 // export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
 export const getVentas = async () => await getDocs(query(collection(database, 'ventas'), orderBy("NumeroVenta", 'desc')))
