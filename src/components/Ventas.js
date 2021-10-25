@@ -1,6 +1,6 @@
 import React from "react";
 import '../App.css';
-import { Spinner } from 'reactstrap';
+//import { Spinner } from 'reactstrap';
 import { Link } from "react-router-dom"
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import { getVentas } from '../conexion-bd/funciones';
@@ -86,7 +86,7 @@ function Ventas() {
                     <div />
                 </h1>
             </div>
-            <Spinner id="spinner" className='lds-dual-ring' color="success" />
+            {/* <Spinner id="spinner" className='lds-dual-ring' color="success" /> */}
         </>
     )
 }
