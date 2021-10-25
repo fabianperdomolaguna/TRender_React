@@ -44,7 +44,7 @@ function App() {
             <Dashboard usuario={firebaseUser} />
             <Route path="/login" exact component={() => <Login />} />
             <Route exact path="/registro/:nuevousuario" component={registroUsuario} />
-            {<Route path="/form_cursos" exact component={() => <Form_Cursos />} />}
+            <Route path="/form_cursos" exact component={() => <Form_Cursos />} />
             <Route exact path="/editar_cursos/:id" component={EditarCurso} />
             <Route path="/home" exact component={() => <Home />} />
             <Route path="/cursos" exact component={() => <Cursos />} />
@@ -52,6 +52,7 @@ function App() {
             <Route path="/usuarios" exact component={() => <Usuarios />} />
             <Route path="/roles" exact component={() => <Roles />} />
             <Route exact path="/usuarios/:id" component={editarUsuario} />
+            <Footer />
           </div>
         </Switch>
       </Router>

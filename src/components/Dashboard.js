@@ -4,6 +4,7 @@ import { Link, NavLink, withRouter } from "react-router-dom"
 
 
 function Dashboard({ usuario }) {
+<<<<<<< HEAD
     // const Login_button = (props) => {
     //     const user_state = props.user_state;
     //     if (user_state) {
@@ -14,12 +15,11 @@ function Dashboard({ usuario }) {
     //         return (<button onClick={event => window.location.href = 'login.html'} type="button" class="btn btn-danger">Logout</button>)
     //     }
     // }
+=======
+>>>>>>> 00b02d21eb465789dcc5b5d3a01529f09a88bf40
     const handleLogOut = () => {
         logOutUsuario()
-
     }
-
-
 
     console.log(usuario);
     return (
@@ -27,11 +27,18 @@ function Dashboard({ usuario }) {
 
             <nav className="main-header navbar navbar-expand navbar-white navbar-light">
                 <ul className="navbar-nav ml-auto">
-                    <Link className="nav-item" to="/login">
-                        <button type="button" className="btn btn-dark">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </button>
-                    </Link>
+                    {
+                        !usuario ? (
+                            <Link className="nav-item" to="/login">
+                                <button type="button" className="btn btn-dark">
+                                    <i class="fas fa-sign-in-alt"></i> LogIn
+                                </button>
+                            </Link>)
+                            :
+                            (<Link className="nav-item" to="/login">
+                                <button type="button" className="btn btn-danger" onClick={handleLogOut}>LogOut</button>
+                            </Link>)
+                    }
                 </ul>
             </nav>
 
@@ -76,6 +83,7 @@ function Dashboard({ usuario }) {
                             <p>Roles<i className="right fas fa-angle-right"></i></p>
                         </Link>
                     </li>
+<<<<<<< HEAD
 
                     <nav className="main-header navbar navbar-expand navbar-white navbar-light">
                     <ul className="navbar-nav ml-auto">
@@ -97,6 +105,8 @@ function Dashboard({ usuario }) {
 
                     </ul>
                 </nav> 
+=======
+>>>>>>> 00b02d21eb465789dcc5b5d3a01529f09a88bf40
                 </nav>
             </aside>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
