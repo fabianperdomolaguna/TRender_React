@@ -29,7 +29,7 @@ function Ventas() {
         document.getElementById('ventas').innerHTML = cadena;
         const tableVentas = document.getElementById('TablaVentas');
         const querySnapshot = await getVentas();
-        document.getElementById("spinner").style.display = "none";
+        //document.getElementById("spinner").style.display = "none";
         var count = 0;
         querySnapshot.forEach(doc => {
             count += 1;
