@@ -23,15 +23,15 @@ import EditarRol from './components/editar_rol';
 function App() {
 
   const [firebaseUser, setFirebaseUser] = useState(false)
-  const [usuarioBd, setUsuarioBd] = useState([])
+  //const [usuarioBd, setUsuarioBd] = useState([])
 
-  // const handleCargarDatos = async () => {
-  //     const usuarioTemporal = await consultarDocumentoDatabase('usuarios',firebaseUser.id)
-  //     setUsuarioBd(usuarioTemporal)
-  // }
-  // useEffect(()=>{
-  //   handleCargarDatos()
-  // },[])
+  //const handleCargarDatos = async () => {
+  //const usuarioTemporal = await consultarDocumentoDatabase('usuarios',firebaseUser.id)
+  //setUsuarioBd(usuarioTemporal)
+  //}
+  //useEffect(()=>{
+    //handleCargarDatos()
+  //},[])
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -39,7 +39,7 @@ function App() {
         const usuario = {
           id: user.uid,
           email: user.email,
-          rol: usuarioBd.rol
+          //rol: usuarioBd.rol
         }
         setFirebaseUser(usuario)
       } else {
