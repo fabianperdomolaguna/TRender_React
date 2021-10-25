@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
@@ -14,19 +15,28 @@ import EditarCurso from "./components/EditarCurso";
 import registroUsuario from "./components/registroUsuario";
 import './App.css';
 import { onAuthStateChanged } from "@firebase/auth";
-import { auth } from "./conexion-bd/funciones";
+import { auth, consultarDocumentoDatabase } from "./conexion-bd/funciones";
 
 function App() {
 
   const [firebaseUser, setFirebaseUser] = useState(false)
+  const [usuarioBd, setUsuarioBd] = useState([])
+
+  const handleCargarDatos = async () => {
+      const usuarioTemporal = await consultarDocumentoDatabase('usuarios',firebaseUser.id)
+      setUsuarioBd(usuarioTemporal)
+  }
+  useEffect(()=>{
+    handleCargarDatos()
+  },[])
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-
       if (user) {
         const usuario = {
           id: user.uid,
-          email: user.email
+          email: user.email,
+          rol: usuarioBd.rol
         }
         setFirebaseUser(usuario)
       } else {
