@@ -15,6 +15,8 @@ import registroUsuario from "./components/registroUsuario";
 import './App.css';
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "./conexion-bd/funciones";
+import Agregar_Rol from "./components/agregar_rol";
+import EditarRol from './components/editar_rol';
 
 function App() {
 
@@ -51,6 +53,9 @@ function App() {
             <Route path="/Ventas" exact component={() => <Ventas />} />
             <Route path="/usuarios" exact component={() => <Usuarios />} />
             <Route path="/roles" exact component={() => <Roles />} />
+            {<Route path="/agregar_rol" exact component={() => <Agregar_Rol/>} />}
+            <Route exact path="/editar_rol/:id" component={EditarRol} />
+
             <Route exact path="/usuarios/:id" component={editarUsuario} />
           </div>
         </Switch>

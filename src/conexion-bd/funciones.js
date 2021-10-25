@@ -200,7 +200,7 @@ export const datosUsuario = async () => {
 
 // el.addEventListener('click', function)
 // Usuario Activo
-onAuthStateChanged(auth, () => {
+/* onAuthStateChanged(auth, () => {
 
   var user = 'Estiven'
   if (user) {
@@ -210,7 +210,7 @@ onAuthStateChanged(auth, () => {
     console.log('El usuario ya no esta logueado');
     usuario = undefined
   }
-})}
+})} */
 
 // export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
 export const getVentas = async () => await getDocs(query(collection(database, 'ventas'), orderBy("NumeroVenta", 'desc')))
