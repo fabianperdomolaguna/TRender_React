@@ -5,7 +5,7 @@ import { getFirestore } from 'firebase/firestore'
 // Referencia al paquete de autenticacion
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 // Metodos de interaccion con la base de datos
-import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
+import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, orderBy, setDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDf5UIMl-yWAgMAMxVNodeh2mOcQf6R5dM",
@@ -27,6 +27,17 @@ export const guardarDatabase = async (nombreColeccion, data) => {
 
   try {
     const respuesta = await addDoc(collection(database, nombreColeccion), data)
+    //console.log(respuesta);
+    return respuesta
+  } catch (e) {
+    throw new Error(e)
+  }
+}
+
+export const guardarUsuario = async (nombreColeccion, data, id) => {
+
+  try {
+    const respuesta = await setDoc(doc(database, nombreColeccion, id), data)
     //console.log(respuesta);
     return respuesta
   } catch (e) {
@@ -102,9 +113,10 @@ export const crearUsuario = async (email, password, nombre) => {
     const credencialesUsuario = await createUserWithEmailAndPassword(auth, email, password)
     const user = {
       correo: credencialesUsuario.user.email,
-      nombre
+      nombre,
+      id: credencialesUsuario.user.uid
     }
-    guardarDatabase('usuarios', user)
+    guardarUsuario('usuarios', user,user.id)
     return user
   } catch (e) {
     throw new Error(e)
