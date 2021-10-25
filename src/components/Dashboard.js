@@ -1,12 +1,14 @@
 import React from 'react';
 import { logOutUsuario } from '../conexion-bd/funciones';
-import { Link,withRouter } from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
+
 
 
 function Dashboard({ usuario }) {
     const handleLogOut = () => {
         logOutUsuario()
     }
+
 
     console.log(usuario);
     return (
@@ -72,25 +74,25 @@ function Dashboard({ usuario }) {
                     </li>
 
                     <nav className="main-header navbar navbar-expand navbar-white navbar-light">
-                    <ul className="navbar-nav ml-auto">
-                        {
-                            !usuario ? (
-                                <Link className="nav-item" to="/login">
-                                    <button type="button" className="btn btn-dark">
-                                        <i class="fas fa-sign-in-alt"></i> LogIn
-                                    </button>
-                                </Link>)
-                                :
-                                (<Link className="nav-item" to="/login">
-                                    <button type="button" className="btn btn-danger"
-                                        onClick={handleLogOut}
-                                    >LogOut
-                                    </button>
-                                </Link>)
-                        }
+                        <ul className="navbar-nav ml-auto">
+                            {
+                                !usuario ? (
+                                    <Link className="nav-item" to="/login">
+                                        <button type="button" className="btn btn-dark">
+                                            <i class="fas fa-sign-in-alt"></i> LogIn
+                                        </button>
+                                    </Link>)
+                                    :
+                                    (<Link className="nav-item" to="/login">
+                                        <button type="button" className="btn btn-danger"
+                                            onClick={handleLogOut}
+                                        >LogOut
+                                        </button>
+                                    </Link>)
+                            }
 
-                    </ul>
-                </nav> 
+                        </ul>
+                    </nav>
                 </nav>
             </aside>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -103,7 +105,7 @@ function Dashboard({ usuario }) {
                         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                             <div className="image"><img src="User1.jpg" className="img-circle elevation-2" alt="User Image" /></div>
                             <div className="info">
-                                <label className = "text-white">NO LOGUEADO</label>
+                                <label className="text-white">NO LOGUEADO</label>
                             </div>
                         </div>
                     </div>)
@@ -113,7 +115,7 @@ function Dashboard({ usuario }) {
                             <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                                 <div className="image"><img src="User1.jpg" className="img-circle elevation-2" alt="User Image" /></div>
                                 <div className="info">
-                                    <label className = "text-white">LOGUEADO</label>
+                                    <label className="text-white">LOGUEADO</label>
                                 </div>
                             </div>
                         </div>)
@@ -128,10 +130,12 @@ function Dashboard({ usuario }) {
                                 </Link>
                             </li>
                             <li className='nav-item'>
-                                <Link className="nav-link" to="/Ventas">
-                                    <i className='nav-icon fas fa-tree'></i>
-                                    <p>Venta de Cursos<i className="right fas fa-angle-right"></i></p>
-                                </Link>
+                                { 
+                                    <Link className="nav-link" to="/Ventas">
+                                        <i className='nav-icon fas fa-tree'></i>
+                                        <p>Venta de Cursos<i className="right fas fa-angle-right"></i></p>
+                                    </Link>
+                                }
                             </li>
                             <li className='nav-item'>
                                 <Link className="nav-link" to="/usuarios">
