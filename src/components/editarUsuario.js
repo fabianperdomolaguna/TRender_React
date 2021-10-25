@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { consultarDocumentoDatabase, actualizarDocumentoDatabase } from '../conexion-bd/funciones';
 
 
@@ -19,7 +19,7 @@ function editarUsuario() {
     const [estado, setEstado] = useState('')
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const history=useHistory()
+    const history = useHistory()
 
     const consultarUsuario = async (idUsuario) => {
         const usuarioTemp = await consultarDocumentoDatabase('usuarios', idUsuario)
@@ -33,14 +33,14 @@ function editarUsuario() {
         consultarUsuario(id)
     }, [id])
 
-    const handleActualizarUsuario = async (e)=>{
+    const handleActualizarUsuario = async (e) => {
         e.preventDefault()
         const usuario = {
             nombre,
             rol,
             estado
         }
-        await actualizarDocumentoDatabase('usuarios',id,usuario)
+        await actualizarDocumentoDatabase('usuarios', id, usuario)
         alert('Usuario modificado de manera exitosa')
         history.push('/usuarios')
     }
@@ -67,31 +67,38 @@ function editarUsuario() {
                                 <tr>
                                     <td class="text-center">{nombre}</td>
                                     <td class="text-center">
-                                        <input
+                                        <select
                                             type="text" placeholder="Rol"
                                             value={rol}
-                                            onChange = {(e)=>setRol(e.target.value)}
-                                        />
+                                            onChange={(e) => setRol(e.target.value)}
+                                        >
+                                            <option>Administrador</option>
+                                            <option>Estudiante</option>
+                                            <option>Vendedor</option>
+                                        </select>
                                     </td>
                                     <td class="text-center">
-                                        <input
+                                        <select
                                             type="text" placeholder="Estado"
                                             value={estado}
-                                            onChange = {(e)=>setEstado(e.target.value)}
-                                        />
+                                            onChange={(e) => setEstado(e.target.value)}
+                                        >
+                                            <option>Activo</option>
+                                            <option>Inactivo</option>
+                                        </select>
                                     </td>
                                 </tr>
                             </tbody>
                             <tfoot class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button
-                                class="btn btn-success mt-2"
-                                onClick={handleActualizarUsuario}
+                                    class="btn btn-success mt-2"
+                                    onClick={handleActualizarUsuario}
                                 >
                                     Actualizar
                                 </button>
                                 <button
-                                class="btn btn-outline-danger mt-2"
-                                onClick={handleCancelar}
+                                    class="btn btn-outline-danger mt-2"
+                                    onClick={handleCancelar}
                                 >
                                     Cancelar
                                 </button>
