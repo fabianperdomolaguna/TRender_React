@@ -72,6 +72,7 @@ function editarUsuario() {
                                             value={rol}
                                             onChange={(e) => setRol(e.target.value)}
                                         >
+                                            <option>Seleccionar</option>
                                             <option>Administrador</option>
                                             <option>Estudiante</option>
                                             <option>Vendedor</option>
@@ -83,6 +84,7 @@ function editarUsuario() {
                                             value={estado}
                                             onChange={(e) => setEstado(e.target.value)}
                                         >
+                                            <option>Seleccionar</option>
                                             <option>Activo</option>
                                             <option>Inactivo</option>
                                         </select>
