@@ -138,32 +138,39 @@ function Dashboard({ usuario }) {
                 <nav className="mt-2">
                     {!!usuario &&
                         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li className='nav-item'>
-                                <Link className="nav-link" to="/cursos">
-                                    <i className='nav-icon fas fa-chart-pie'></i>
-                                    <p>Cursos<i className="right fas fa-angle-right"></i></p>
-                                </Link>
-                            </li>
-                            <li className='nav-item'>
-                                {
+                            {(usuarioBd.rol === "Estudiante" || usuarioBd.rol === "Administrador") &&
+                                <li className='nav-item'>
+                                    <Link className="nav-link" to="/cursos">
+                                        <i className='nav-icon fas fa-chart-pie'></i>
+                                        <p>Cursos<i className="right fas fa-angle-right"></i></p>
+                                    </Link>
+                                </li>
+                            }
+
+                            {(usuarioBd.rol === "Vendedor" || usuarioBd.rol === "Administrador") &&
+                                <li className='nav-item'>
                                     <Link className="nav-link" to="/Ventas">
                                         <i className='nav-icon fas fa-tree'></i>
                                         <p>Venta de Cursos<i className="right fas fa-angle-right"></i></p>
                                     </Link>
-                                }
-                            </li>
-                            <li className='nav-item'>
-                                <Link className="nav-link" to="/usuarios">
-                                    <i className='nav-icon fas fa-edit'></i>
-                                    <p>Usuarios<i className="right fas fa-angle-right"></i></p>
-                                </Link>
-                            </li>
-                            <li className='nav-item'>
-                                <Link className="nav-link" to="/roles">
-                                    <i className='nav-icon fas fa-table'></i>
-                                    <p>Roles<i className="right fas fa-angle-right"></i></p>
-                                </Link>
-                            </li>
+                                </li>
+                            }
+                            {usuarioBd.rol === "Administrador" &&
+                                <li className='nav-item'>
+                                    <Link className="nav-link" to="/usuarios">
+                                        <i className='nav-icon fas fa-edit'></i>
+                                        <p>Usuarios<i className="right fas fa-angle-right"></i></p>
+                                    </Link>
+                                </li>
+                            }
+                            {usuarioBd.rol === "Administrador" &&
+                                <li className='nav-item'>
+                                    <Link className="nav-link" to="/roles">
+                                        <i className='nav-icon fas fa-table'></i>
+                                        <p>Roles<i className="right fas fa-angle-right"></i></p>
+                                    </Link>
+                                </li>
+                            }
                         </ul>
                     }
                 </nav>
