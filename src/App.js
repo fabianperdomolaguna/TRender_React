@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -16,30 +17,20 @@ import EditarCurso from "./components/EditarCurso";
 import registroUsuario from "./components/registroUsuario";
 import './App.css';
 import { onAuthStateChanged } from "@firebase/auth";
-import { auth, consultarDocumentoDatabase } from "./conexion-bd/funciones";
+import { auth } from "./conexion-bd/funciones";
 import Agregar_Rol from "./components/agregar_rol";
 import EditarRol from './components/editar_rol';
 
 function App() {
 
   const [firebaseUser, setFirebaseUser] = useState(false)
-  //const [usuarioBd, setUsuarioBd] = useState([])
-
-  //const handleCargarDatos = async () => {
-  //const usuarioTemporal = await consultarDocumentoDatabase('usuarios',firebaseUser.id)
-  //setUsuarioBd(usuarioTemporal)
-  //}
-  //useEffect(()=>{
-    //handleCargarDatos()
-  //},[])
-
+  
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const usuario = {
           id: user.uid,
-          email: user.email,
-          //rol: usuarioBd.rol
+          email: user.email
         }
         setFirebaseUser(usuario)
       } else {
@@ -65,7 +56,7 @@ function App() {
             {<Route path="/registrar_ventas" exact component={() => <Registrar_Ventas />} />}
             <Route path="/usuarios" exact component={() => <Usuarios />} />
             <Route path="/roles" exact component={() => <Roles />} />
-            {<Route path="/agregar_rol" exact component={() => <Agregar_Rol/>} />}
+            {<Route path="/agregar_rol" exact component={() => <Agregar_Rol />} />}
             <Route exact path="/editar_rol/:id" component={EditarRol} />
 
             <Route exact path="/usuarios/:id" component={editarUsuario} />
