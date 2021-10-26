@@ -114,7 +114,9 @@ export const crearUsuario = async (email, password, nombre) => {
     const user = {
       correo: credencialesUsuario.user.email,
       nombre,
-      id: credencialesUsuario.user.uid
+      id: credencialesUsuario.user.uid,
+      rol:"",
+      estado:""
     }
     guardarUsuario('usuarios', user,user.id)
     return user
@@ -212,9 +214,7 @@ export const datosUsuario = async () => {
 
 // el.addEventListener('click', function)
 // Usuario Activo
-/* onAuthStateChanged(auth, () => {
-
-  var user = 'Estiven'
+onAuthStateChanged(auth, (user) => {
   if (user) {
     usuario = user
     console.log('El usuario logueado');
@@ -222,7 +222,7 @@ export const datosUsuario = async () => {
     console.log('El usuario ya no esta logueado');
     usuario = undefined
   }
-})} */
+})
 
 // export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
 export const getVentas = async () => await getDocs(query(collection(database, 'ventas'), orderBy("NumeroVenta", 'desc')))
