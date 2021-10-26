@@ -1,6 +1,7 @@
 import React from 'react';
-import { logOutUsuario } from '../conexion-bd/funciones';
+import { consultarDocumentoDatabase, logOutUsuario } from '../conexion-bd/funciones';
 import { Link, withRouter } from "react-router-dom"
+import { useEffect, useState } from 'react/cjs/react.development';
 
 
 
@@ -8,9 +9,23 @@ function Dashboard({ usuario }) {
     const handleLogOut = () => {
         logOutUsuario()
     }
+    const [usuarioBd, setUsuarioBd] = useState([])
+
+    const consultarUsuario = async (idUsuario) => {
+        const Usuarios = await consultarDocumentoDatabase('usuarios', idUsuario)
+        setUsuarioBd(Usuarios)
+        return usuarioBd
+    }
+
+    useEffect(() => {
+        if (usuario) {
+            consultarUsuario(usuario.id)
+        }
+    }, [usuario])
+
+    console.log(usuarioBd)
 
 
-    console.log(usuario);
     return (
         <>
 
@@ -130,7 +145,7 @@ function Dashboard({ usuario }) {
                                 </Link>
                             </li>
                             <li className='nav-item'>
-                                { 
+                                {
                                     <Link className="nav-link" to="/Ventas">
                                         <i className='nav-icon fas fa-tree'></i>
                                         <p>Venta de Cursos<i className="right fas fa-angle-right"></i></p>
