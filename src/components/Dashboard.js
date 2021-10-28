@@ -23,7 +23,7 @@ function Dashboard({ usuario }) {
         }
     }, [usuario])
 
-    console.log(usuarioBd)
+    // console.log(usuarioBd)
 
 
     return (
@@ -146,7 +146,7 @@ function Dashboard({ usuario }) {
                             </li>
                             <li className='nav-item'>
                                 {
-                                    <Link className="nav-link" to="/Ventas">
+                                    <Link className="nav-link" to={`/Ventas/${usuario.id}`}>
                                         <i className='nav-icon fas fa-tree'></i>
                                         <p>Venta de Cursos<i className="right fas fa-angle-right"></i></p>
                                     </Link>

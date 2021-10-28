@@ -12,6 +12,7 @@ import Ventas from "./components/Ventas";
 import Usuarios from "./components/Usuarios";
 import Roles from "./components/Roles";
 import Login from "./components/Login";
+import EditarVentas from "./components/EditarVentas";
 import editarUsuario from "./components/editarUsuario";
 import EditarCurso from "./components/EditarCurso";
 import registroUsuario from "./components/registroUsuario";
@@ -43,7 +44,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-
+s
           <div>
             <Dashboard usuario={firebaseUser} />
             <Route path="/login" exact component={() => <Login />} />
@@ -52,14 +53,14 @@ function App() {
             <Route exact path="/editar_cursos/:id" component={EditarCurso} />
             <Route path="/home" exact component={() => <Home />} />
             <Route path="/cursos" exact component={() => <Cursos />} />
-            <Route path="/Ventas" exact component={() => <Ventas />} />
-            {<Route path="/registrar_ventas" exact component={() => <Registrar_Ventas />} />}
+            <Route exact path="/Ventas/:id" component={Ventas} />
+            <Route path="/registrar_ventas/:id" exact component={() => <Registrar_Ventas />}  />
             <Route path="/usuarios" exact component={() => <Usuarios />} />
             <Route path="/roles" exact component={() => <Roles />} />
             {<Route path="/agregar_rol" exact component={() => <Agregar_Rol />} />}
             <Route exact path="/editar_rol/:id" component={EditarRol} />
-
             <Route exact path="/usuarios/:id" component={editarUsuario} />
+            <Route exact path="/Editar_Ventas/:idVenta/:idVendedor" component={EditarVentas} />
             <Footer />
           </div>
         </Switch>

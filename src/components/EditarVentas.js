@@ -1,32 +1,51 @@
 import React, { useState, useEffect } from "react";
 import '../App.css';
-import { getVentasUnit, getDatos, getCurso, PutVenta, datosUsuario, consultarDocumentoDatabase } from '../conexion-bd/funciones';
+import { getDatos, getCurso, consultarDocumentoDatabase,actualizarDocumentoDatabase } from '../conexion-bd/funciones';
 import Swal from 'sweetalert2'
 import { Link, useParams } from "react-router-dom"
 
-const _defaultCosts = [{
-    id: 1,
-    cursos: 'CursoClienteV1',
-    area: "AreaClienteV1",
-    cantidad: "CantidadV1",
-    precio: "PrecioCursoV1",
-    total: "TotalV1",
-}];
+const _defaultCosts = [];
 
 const RegistrarVentas = () => {
+    const [listaCursos, setListaCursos] = useState([]);
     const [usuarioBd, setUsuarioBd] = useState([])
-    const { id } = useParams()
+    const [cursosVentadb, setUcursosVentadb] = useState([])
+    const { idVendedor } = useParams()
+    const { idVenta } = useParams()
+  
+
+
     const consultarUsuario = async (idUsuario) => {
         const Usuarios = await consultarDocumentoDatabase('usuarios', idUsuario)
         setUsuarioBd(Usuarios)
         return usuarioBd
     }
-    
-    useEffect(() => {
-        if (id) {
-            consultarUsuario(id)
+    const consultarVenta = async (idVenta) => {
+        const cursosVenta = await consultarDocumentoDatabase('ventas', idVenta)
+        setListaCursos(cursosVenta.filas)
+        setUcursosVentadb(cursosVenta)
+        document.getElementById("NumeroVenta").innerHTML = cursosVenta.NumeroVenta
+        document.getElementById("NombreClienteV").value = cursosVenta.NombreClienteV
+        document.getElementById("IdentiClienteV").value = cursosVenta.IdentiClienteV
+        document.getElementById("TotalVenta").value = cursosVenta.TotalVenta
+        const tableVentas = document.getElementById('tablaResgistrarVentas');
+        for (var i = 1, row; row = tableVentas.rows[i]; i++) {
+            var id = row.cells[0].id
+            await CargarSelect('CursoClienteV' + id, 'cursos')
+            await CargarSelect('AreaClienteV' + id, 'areas')
         }
-    }, [id])
+        return cursosVentadb
+    }
+
+    useEffect(() => {
+        if (idVendedor) {
+            consultarUsuario(idVendedor);
+            consultarVenta(idVenta);
+        }
+    }, [idVendedor, idVenta])
+
+
+
 
     const [loading, setLoading] = useState(false)
     function loadData() {
@@ -34,8 +53,7 @@ const RegistrarVentas = () => {
     }
 
     // esta funcion elimina lla fila de la tabla
-
-    function eliminar_row(row) {
+    function eliminar_row_edit(row) {
         var rowIndex = row.target.parentNode.parentNode.parentNode.rowIndex
         document.getElementById("tablaResgistrarVentas").deleteRow(rowIndex);
         calcularTotal()
@@ -55,12 +73,12 @@ const RegistrarVentas = () => {
         }
         )
     };
+
     const calcularTotal = async (e) => {
         const tableVentas = document.getElementById('tablaResgistrarVentas');
         var total = 0;
         var subTotal = 0;
         for (var i = 1, row; row = tableVentas.rows[i]; i++) {
-            console.log(row.cells[0].id)
             var id = row.cells[0].id
             subTotal = document.getElementById('TotalV' + id).value.trim();
             subTotal = subTotal.substring(subTotal.indexOf('$') + 1, subTotal.length);
@@ -73,12 +91,14 @@ const RegistrarVentas = () => {
     };
 
     const ponerPrecio = async (e) => {
-
         var idVentas = e.target.id
-
         idVentas = idVentas.substring(idVentas.indexOf('V') + 1, idVentas.length);
         const stateQueryRes = await getCurso(e.target.value);
-        document.getElementById('CantidadV' + idVentas).value = 1
+        var cantACtual = document.getElementById('CantidadV' + idVentas).value;
+        if (cantACtual === "") {
+            cantACtual = document.getElementById('CantidadV' + idVentas).placeholder;
+        }
+        document.getElementById('CantidadV' + idVentas).value = cantACtual;
         stateQueryRes.forEach(doc => {
             var precio = doc.data().Costo
             var precioUnitario = new Intl.NumberFormat('es-CO').format(precio);
@@ -88,33 +108,12 @@ const RegistrarVentas = () => {
             document.getElementById('TotalV' + idVentas).value = '$' + total;
 
         })
-
         calcularTotal()
     }
 
-    useEffect(async () => { 
-        await CargarSelect('CursoClienteV1', 'cursos')  
-        const querySnapshot = await getVentasUnit();
-        var consecutivo = 0;
-        querySnapshot.forEach(doc => {
-            consecutivo = doc.data().NumeroVenta;
-            consecutivo = parseInt(consecutivo.substring(6, 8)) + 1
-        });
-        if (consecutivo < 10) {
-            document.getElementById('NumeroVenta').innerHTML = 'SO-1000' + consecutivo
-        }
-        else {
-            document.getElementById('NumeroVenta').innerHTML = 'SO-100' + consecutivo
-        }
-    },[]);
-
-
-    useEffect(async () => { 
-        await CargarSelect('AreaClienteV1', 'areas') 
-    }
-    ,[]);
 
     const [costs, setCosts] = useState(_defaultCosts);
+
     const addNewLine = async () => {
         var oRows = document.getElementById('tablaResgistrarVentas').getElementsByTagName('tr');
         var iRowCount = oRows.length;
@@ -127,11 +126,12 @@ const RegistrarVentas = () => {
             total: "TotalV" + iRowCount,
 
         },]);
+
         await CargarSelect('CursoClienteV' + iRowCount, 'cursos')
         await CargarSelect('AreaClienteV' + iRowCount, 'areas')
     };
 
-    const ActualiarTotal = async (e) => {
+    const ActualiarTotal = (e) => {
         var idVentas = e.target.id
         idVentas = idVentas.substring(idVentas.indexOf('V') + 1, idVentas.length);
         var precio = document.getElementById('PrecioCursoV' + idVentas).value
@@ -155,7 +155,7 @@ const RegistrarVentas = () => {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Something went wrong!',
-            }).then((result) => {
+            }).then(() => {
                 setLoading(false)
 
             });
@@ -167,7 +167,6 @@ const RegistrarVentas = () => {
     }
 
     // Esta funcion envia los datos a la base de datos
-
     const enviarInfo = ('submit', async (e) => {
         const filas = [];
         e.preventDefault();
@@ -176,14 +175,23 @@ const RegistrarVentas = () => {
         if (val) {
             var totalCursos = 0;
             for (var i = 1, row; row = tableVentas.rows[i]; i++) {
-                var select = document.getElementById("CursoClienteV" + i);
+                var id = row.cells[0].id
+                var select = document.getElementById("CursoClienteV" + id);
                 const CursoClienteV = select.options[select.selectedIndex].value.trim();
-                var select = document.getElementById("AreaClienteV" + i);
+                var select = document.getElementById("AreaClienteV" + id);
                 const AreaClienteV = select.options[select.selectedIndex].value.trim();
-                const PrecioCursoV = document.getElementById('PrecioCursoV' + i).value.trim();
-                const CantidadV = document.getElementById('CantidadV' + i).value.trim();
-                const totalV = document.getElementById('TotalV' + i).value.trim();
-                var select = document.getElementById("EstadoV" + i);
+                const PrecioCursoV = document.getElementById('PrecioCursoV' + id).value.trim();
+                var CantidadV = document.getElementById('CantidadV' + id).value.trim();
+                if(CantidadV === ""){
+
+                    CantidadV = document.getElementById('CantidadV' + id).placeholder.trim();
+                }
+                var totalV = document.getElementById('TotalV' + id).value.trim();
+                if(totalV === ""){
+
+                    totalV = document.getElementById('TotalV' + id).placeholder.trim();
+                }
+                var select = document.getElementById("EstadoV" + id);
                 if (CursoClienteV == 'Seleccionar' | AreaClienteV == 'Seleccionar') {
                     val = false
                 }
@@ -204,9 +212,10 @@ const RegistrarVentas = () => {
             const EstadoV = 'Cerrada';
             const Vendedor = usuarioBd.nombre;
             let fecha = new Date().toISOString().slice(0, 10)
+        
             if (val) {
-                await PutVenta({
-                    "fecha": fecha,
+                await actualizarDocumentoDatabase('ventas',idVenta,
+             { "fecha": fecha,
                     "NumeroVenta": NumeroVenta,
                     "NombreClienteV": NombreClienteV,
                     "IdentiClienteV": IdentiClienteV,
@@ -220,10 +229,10 @@ const RegistrarVentas = () => {
                 Swal.fire({
                     confirmButtonText: 'Ok',
                     icon: 'success',
-                    title: 'Saved!',
+                    title: 'Update!',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = `/ventas/${id}`;
+                        window.location.href = `/ventas/${idVendedor}`;
                     }
                 })
             }
@@ -233,7 +242,7 @@ const RegistrarVentas = () => {
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Something went wrong!',
-                }).then((result) => {
+                }).then(() => {
                     setLoading(false)
 
                 });
@@ -249,22 +258,22 @@ const RegistrarVentas = () => {
                 <form id='registrar-ventas' onSubmit={enviarInfo}>
                     <div className=" card divPrinciplaRV">
                         <h5 className="card-header text-align: center"> <i className=" text-align: center fas fa-cart-plus"></i>
-                            Registar Ventas
+                            Editar Ventas
                             <br />
                             <br />
                             <button type="button" className=" text-center btn btn-success btn-rounded btn-sm my-0" onClick={addNewLine}>
-                                Agregar linea
+                                Agregar línea
                             </button>
                         </h5>
                         <div className="row">
                             <div className="card text-white bg-dark  mb-4 inputSO">
-                                <div id="NumeroVenta" className="card-header">SO-</div>
+                                <div id="NumeroVenta" className="card-header"></div>
                             </div>
                             <div className="col-lg-3 col-sm-1">
                                 <div className="form-floating mb-1 inputClient" >
                                     <input className="form-control" id="NombreClienteV" type="text"
-                                        placeholder="Nombre cliente" autofocus />
-                                    <label for="NombreClienteV">Nombre del Cliente</label>
+                                        placeholder="Nombre Cliente" />
+                                    <label>Nombre del Cliente</label>
                                 </div>
                             </div>
 
@@ -272,7 +281,7 @@ const RegistrarVentas = () => {
                                 <div className="form-floating mb-1 inputClient" >
                                     <input className="form-control" id="IdentiClienteV" type="text"
                                         placeholder="Identicacion del Cliente" />
-                                    <label for="IdentiClienteV">Identificación del Cliente</label>
+                                    <label>Identificación del Cliente</label>
                                 </div>
                             </div>
 
@@ -298,53 +307,90 @@ const RegistrarVentas = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {costs.map((item, index) => (
-                                        <tr>
-                                            <td id={item.id}>
-                                                <select id={item.cursos}
-                                                    className="form-select text-center" aria-label="Rol"
-                                                    onChange={ponerPrecio}>
-                                                    <option value="Seleccionar" selected>Seleccionar</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select id={item.area} name='AreaClienteV1'
-                                                    className="form-select text-center" aria-label="Rol">
-                                                    <option value="Seleccionar" selected>Seleccionar</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="number" min="1" id={item.cantidad} class="text-center"
-                                                    onChange={ActualiarTotal} placeholder="Cantidad" />
-                                            </td>
-                                            <td>
-                                                <input id={item.precio} className="text-center" placeholder="Precio Unitario" onChange={ActualiarTotal} disabled />
-                                            </td>
-                                            <td>
-                                                <input id={item.total} className="text-center" placeholder="Total"
-                                                    onchange="calcularTotal(this)" disabled />
-                                            </td>
-                                            <td>
-                                                <span className="table-remove text-center">
-                                                    <button type="button"
-                                                        onClick={eliminar_row}
-                                                        className=" text-center btn btn-danger btn-rounded btn-sm my-0"
-                                                        value="Delete"
-                                                        onmouseover="this.style.cursor='hand'" >
-                                                        Eliminar
-                                                    </button>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
-
+                                    {
+                                        listaCursos.map((item, index) => (
+                                            <tr>
+                                                <td id={index}>
+                                                    <select id={"CursoClienteV" + index}
+                                                        className="form-select text-center" aria-label="Rol"
+                                                        onChange={ponerPrecio}>
+                                                        <option value={item.CursoClienteV} selected>{item.CursoClienteV}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id={'AreaClienteV' + index}
+                                                        className="form-select text-center" aria-label="Rol">
+                                                        <option value={item.AreaClienteV} selected>{item.AreaClienteV}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="1" id={'CantidadV' + index} className="text-center" onChange={(e) => {ActualiarTotal(e) }} placeholder={item.CantidadV} />
+                                                </td>
+                                                <td>
+                                                    <input id={'PrecioCursoV' + index} className="text-center" placeholder="Precio Unitario" disabled value={item.PrecioCursoV} />
+                                                </td>
+                                                <td>
+                                                    <input id={'TotalV' + index} className="text-center" disabled placeholder={item.totalV} />
+                                                </td>
+                                                <td>
+                                                    <span className="table-remove text-center">
+                                                        <button type="button"
+                                                            onClick={eliminar_row_edit}
+                                                            className=" text-center btn btn-danger btn-rounded btn-sm my-0"
+                                                            value="Delete">
+                                                            Eliminar
+                                                        </button>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                    {costs ?
+                                        costs.map((item) => (
+                                            <tr>
+                                                <td id={item.id}>
+                                                    <select id={item.cursos}
+                                                        className="form-select text-center" aria-label="Rol"
+                                                        onChange={ponerPrecio}>
+                                                        <option value="Seleccionar" selected>Seleccionar</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select id={item.area} name='AreaClienteV1'
+                                                        className="form-select text-center" aria-label="Rol">
+                                                        <option value="Seleccionar" selected>Seleccionar</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="1" id={item.cantidad} class="text-center"
+                                                        onChange={ActualiarTotal} placeholder="Cantidad" />
+                                                </td>
+                                                <td>
+                                                    <input id={item.precio} className="text-center" placeholder="Precio Unitario" onChange={ActualiarTotal} disabled />
+                                                </td>
+                                                <td>
+                                                    <input id={item.total} className="text-center" placeholder="Total" disabled />
+                                                </td>
+                                                <td>
+                                                    <span className="table-remove text-center">
+                                                        <button type="button"
+                                                            onClick={eliminar_row_edit}
+                                                            className=" text-center btn btn-danger btn-rounded btn-sm my-0"
+                                                            value="Delete"
+                                                            onmouseover="this.style.cursor='hand'" >
+                                                            Eliminar
+                                                        </button>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        )) : ""}
                                 </tbody>
                             </table>
                             <div className="card-footer text-end">
                                 <button type='submit' onClick={loadData} className="btn btn-success" disabled={loading} >
                                     {loading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
-                                    Confirma</button>
-                                <Link className="col" to={`/ventas/${id}`}>
+                                    Actualizar</button>
+                                <Link className="col" to={`/ventas/${idVendedor}`}>
                                     <button className="btn btn-dark" type="button">  Cancelar</button>
                                 </Link>
                             </div>

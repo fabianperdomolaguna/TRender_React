@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom"
 import {consultarDatabase, eliminarDocumentoDatabase} from '../conexion-bd/funciones';
 
+
 function Cursos(){
     const [listaCursos, setListaCursos] = useState([])
 
@@ -85,7 +86,7 @@ function Cursos(){
                                         <td className="text-center">{curso.Curso}</td>
                                         <td className="text-center">{curso.Area}</td>
                                         <td className="text-center">{curso.Instructor}</td>
-                                        <td className="text-center">${curso.Costo}</td>
+                                        <td className="text-center">{curso.Costo}</td>
                                         <td className="text-center">{curso.Estado}</td>
                                         <td className="text-center">
                                             <Link to={`/editar_cursos/${curso.id}`}>

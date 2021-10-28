@@ -7,14 +7,14 @@
 }
 
 
-.buttonRegistrarVentas{
+/* .buttonRegistrarVentas{
   margin-left: 1rem; 
   font-size: 40%;
 
-}
-.styleTable{
+} */
+/* .styleTable{
   font-size: 40%;
-}
+} */
 .lds-dual-ring {
   display: inline-block;
   width: 80px;
@@ -25,14 +25,14 @@
 }
 
 .table-scroll {
-  /* height:700px; */
+  height:700px;
   overflow:auto;  
 
 }
 
 .divPrinciplaRV{
   width: 101rem;
-  left: -15rem;
+  left: 1rem;
   top:1rem;
 
 
@@ -46,4 +46,41 @@
 .inputClient{
   left: 2rem; 
   top:1rem
+}
+
+#ventas1 {
+  overflow:scroll;
+  height:631px;
+  width:1625px;
+  
+}
+#ventas1 table {
+ background-color:lightgray;
+}
+
+
+.headcol {
+  position:absolute;
+    left:10;
+}
+
+thead tr th { 
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #ffffff;
+}
+
+.table-responsive { 
+ 
+  overflow:scroll;
+}
+
+.positionTabal{
+  margin-left: 2rem; 
+  margin-top:1rem;
+}
+
+.positionTabal2{
+  margin-top:1rem;
 }

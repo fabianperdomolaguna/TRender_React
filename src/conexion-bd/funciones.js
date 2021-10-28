@@ -5,7 +5,8 @@ import { getFirestore } from 'firebase/firestore'
 // Referencia al paquete de autenticacion
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 // Metodos de interaccion con la base de datos
-import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, orderBy, setDoc} from 'firebase/firestore'
+import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, orderBy, setDoc, where, limit } from 'firebase/firestore'
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDf5UIMl-yWAgMAMxVNodeh2mOcQf6R5dM",
@@ -115,10 +116,10 @@ export const crearUsuario = async (email, password, nombre) => {
       correo: credencialesUsuario.user.email,
       nombre,
       id: credencialesUsuario.user.uid,
-      rol:"",
-      estado:""
+      rol: "",
+      estado: ""
     }
-    guardarUsuario('usuarios', user,user.id)
+    guardarUsuario('usuarios', user, user.id)
     return user
   } catch (e) {
     throw new Error(e)
@@ -149,7 +150,7 @@ export const loginUsuario = async (email, password) => {
 export const logOutUsuario = async () => {
   try {
     const respuesta = await signOut(auth)
-    console.log(respuesta);
+    // console.log(respuesta);
     console.log('Me sali...!');
   } catch (e) {
     throw new Error(e)
@@ -160,8 +161,7 @@ export const logOutUsuario = async () => {
 export const datosUsuario = async () => {
   try {
     const user = auth.currentUser
-    console.log(user);
-
+    // console.log(user);
     if (user) {
       console.log(user);
       return user
@@ -226,14 +226,25 @@ onAuthStateChanged(auth, (user) => {
 
 // export const getVentas = async () => database.collection('ventas').orderBy("NumeroVenta", 'desc').get();
 export const getVentas = async () => await getDocs(query(collection(database, 'ventas'), orderBy("NumeroVenta", 'desc')))
-var user = 'Estiven'
-if (user) {
-  usuario = user
-  console.log('El usuario logueado');
-} else {
-  console.log('El usuario ya no esta logueado');
-  usuario = undefined
+export const getDatos = async (baseDatos) => await getDocs(query(collection(database, baseDatos), where("Estado", "==", "Activo")));
+export const getCurso = async (nombre) => await getDocs(query(collection(database, "cursos"), where("Curso", "==", nombre)));
+export const getVentasUnit = async () => await getDocs(query(collection(database, 'ventas'), orderBy("NumeroVenta", 'desc'), limit(1)));
+export const getInfOrden = async (NumeroVentaInf) => await getDocs(query(collection(database, 'ventas'), where("NumeroVenta", "==",NumeroVentaInf)))
+export const PutVenta = async (data) => {
+  const respuesta = await addDoc(collection(database, 'ventas'), data)
+  return respuesta
+};
+
+export const consultarVentas = async () => {
+    const respuesta = await getDocs(query(collection(database, 'ventas'),orderBy("NumeroVenta", 'desc')))
+    
+    const coleccionDatos = respuesta.docs.map((documento) => {
+      const documentoTemporal = {
+        id: documento.id,
+        ...documento.data()
+      }
+      return documentoTemporal
+    })
+    return coleccionDatos
+
 }
-
-
-
