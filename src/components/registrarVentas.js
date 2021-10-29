@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../App.css';
-import { getVentasUnit, getDatos, getCurso, PutVenta, datosUsuario, consultarDocumentoDatabase } from '../conexion-bd/funciones';
+import { getVentasUnit, getDatos, getCurso, PutVenta, consultarDocumentoDatabase } from '../conexion-bd/funciones';
 import Swal from 'sweetalert2'
 import { Link, useParams } from "react-router-dom"
 
@@ -150,7 +150,6 @@ const RegistrarVentas = () => {
         var identificacionCliente = document.getElementById('IdentiClienteV').value
         if (nombreCliente === '' | identificacionCliente == '') {
             Swal.fire({
-
                 confirmButtonText: 'Ok',
                 icon: 'error',
                 title: 'Oops...',

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../App.css';
 import { Link, useParams } from "react-router-dom"
-import { consultarVentas, consultarDocumentoDatabase, getCurso, getInfOrden } from '../conexion-bd/funciones';
-import { useState } from 'react/cjs/react.development';
+import { consultarVentas, consultarDocumentoDatabase, eliminarDocumentoDatabase } from '../conexion-bd/funciones';
 import { Button, Modal } from 'react-bootstrap';
-
+import Swal from 'sweetalert2'
 
 
 const Ventas = () => {
@@ -19,13 +18,14 @@ const Ventas = () => {
     const [TotalVenta, setTotalVenta] = React.useState('');
     const [IdentiClienteV, setIdentiClienteV] = React.useState('');
     const [loading, setLoading] = useState(false)
-
+    const [busqueda, setBusqueda] = useState('')
     const handleShow = () => setShow(true);
+
     async function editarOrden(e) {
         setShow(true);
         setLoading(true)
-        const idVentaUn = e.target.id.substring(e.target.id.indexOf('/') + 1 ,e.target.id.length);
-        const id = e.target.id.substring(0,e.target.id.indexOf('/'));
+        const idVentaUn = e.target.id.substring(e.target.id.indexOf('/') + 1, e.target.id.length);
+        const id = e.target.id.substring(0, e.target.id.indexOf('/'));
         setNumeroVenta(document.getElementById('NumeroVenta' + id).innerHTML)
         setNombreClienteV(document.getElementById('NombreClienteV' + id).innerHTML)
         setIdentiClienteV(document.getElementById('IdentiClienteV' + id).innerHTML)
@@ -43,15 +43,10 @@ const Ventas = () => {
         return usuarioBd
     }
     const handleCargarDatos = async () => {
-        await consultarUsuario(id)
         var listaVentas = await consultarVentas();
         setListaVentas(listaVentas)
     }
 
-
-    handleCargarDatos();
-
-    const [busqueda, setBusqueda] = useState('')
     const FilterVenta = (search, lista) => {
         if (search == '') {
             return lista
@@ -66,6 +61,41 @@ const Ventas = () => {
             return listFiletered;
         }
     }
+
+    useEffect(() => {
+        consultarUsuario(id);
+        handleCargarDatos();
+    }, [id])
+
+    const eliminarVenta = ('submit', async (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Desea eliminar la orden?',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await eliminarDocumentoDatabase('ventas', e.target.id)
+                Swal.fire({
+                    confirmButtonText: 'Ok',
+                    title: 'Se elimino correctamente',
+                    icon: 'success'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = `/ventas/${id}`
+                    };
+
+                })
+            };
+
+
+        }
+        );
+    });
+
+
+
+
     var ventas = [];
     if (usuarioBd.rol === 'Vendedor') {
         ventas = FilterVenta(usuarioBd.nombre, listaVentas);
@@ -75,6 +105,7 @@ const Ventas = () => {
     }
 
     ventas = FilterVenta(busqueda, ventas);
+
     return (
         <>
             <div className="content-wrapper" >
@@ -125,8 +156,8 @@ const Ventas = () => {
                                                 <td id={'Vendedor' + index} className="text-center">{venta.Vendedor}</td>
                                                 <td id={'EstadoV' + index} className="text-center">{venta.EstadoV}</td>
                                                 <td>
-                                                    <button id={venta.id} type="button" className="btn btn-danger" >
-                                                        <i className="fas fa-trash-alt"></i>
+                                                    <button id={venta.id} type="submit" className="btn btn-danger" onClick={(e) => { eliminarVenta(e) }}>
+                                                        <i id={venta.id} className="fas fa-trash-alt"></i>
                                                     </button>
                                                     <Link to={`/Editar_Ventas/${venta.id}/${id}`}>
                                                         <button id={venta.id} type="button" className="btn btn-primary">
