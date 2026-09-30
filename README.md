@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# TRender University
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web para administrar la venta de cursos online. Es la reinvención moderna del proyecto original **TRender_React**: backend con **FastAPI + MongoDB + JWT**, frontend con **React 19 + Vite + TanStack Router**, y todo dockerizado con Docker Compose.
 
-## Available Scripts
+## Características
 
-In the project directory, you can run:
+- **Autenticación JWT**: registro, login y perfil (`/auth/me`), con token persistido en `localStorage`.
+- **Rutas protegidas por rol**: cada módulo se muestra según el rol del usuario (Administrador, Vendedor, Estudiante), con guards en el router.
+- **Cursos y áreas (subjects)**: CRUD completo de cursos con precio en COP, instructor y estado.
+- **Ventas**: registro de ventas con numeración consecutiva (`SO-10000`, `SO-10001`, …), múltiples líneas por venta y cálculo automático de totales.
+- **Usuarios y roles**: el administrador asigna rol y estado a los usuarios registrados.
+- **Interfaz**: Bootstrap 5.3 + react-bootstrap, alertas con SweetAlert2 y menú lateral por rol.
 
-### `npm start`
+## Instalación
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Clona el repositorio:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+git clone <url-del-repositorio>
+cd TRender_React
+```
 
-### `npm test`
+Crea un archivo `.env` en la raíz con las siguientes variables:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```env
+MONGO_ROOT_USERNAME=admin
+MONGO_ROOT_PASSWORD=admin123
+JWT_SECRET=una_clave_larga_y_secreta
+JWT_EXPIRATION_MINUTES=120
+ADMIN_EMAIL=admin@trender.edu.co
+ADMIN_PASSWORD=admin123
+```
 
-### `npm run build`
+Levanta todos los servicios:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+docker compose up -d --build
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Uso
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Abre el navegador en:
 
-### `npm run eject`
+| Servicio | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| API | http://localhost:80/docs |
+| Mongo Express UI (mongoku) | http://localhost:3100 |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Al arrancar, la API ejecuta un **seed** que crea los roles, las áreas, unos cursos de ejemplo y el usuario administrador con las credenciales de `ADMIN_EMAIL` / `ADMIN_PASSWORD`. Inicia sesión con esas credenciales y navega por el menú lateral según tu rol.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Rutas
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Públicas**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- `/login` — inicio de sesión.
+- `/registro` — registro de usuarios nuevos.
 
-## Learn More
+**Protegidas** (requieren sesión iniciada)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `/home` — página de inicio (cualquier usuario autenticado).
+- `/cursos` — gestor de cursos (Administrador, Vendedor y Estudiante).
+- `/ventas` — gestor de ventas (Administrador y Vendedor).
+- `/usuarios` — gestor de usuarios (solo Administrador).
+- `/roles` — gestor de roles (solo Administrador).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**API** (prefijo en `http://localhost:80`)
 
-### Code Splitting
+- `POST /auth/register`, `POST /auth/login`, `GET /auth/me`
+- `GET|POST /courses`, `GET /courses/active`, `GET|PUT|DELETE /courses/{id}`
+- `GET /subjects`, `GET /subjects/active`, `POST /subjects`
+- `GET|POST /sales`, `GET /sales/sequence`, `GET|PUT|DELETE /sales/{id}`
+- `GET /users` (admin), `GET|PUT|DELETE /users/{id}`, `GET /roles`, `POST|PUT /roles`, `DELETE /roles/{id}`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Estructura del proyecto
 
-### Analyzing the Bundle Size
+```
+api/
+  app/
+    main.py            # App FastAPI, CORS y lifespan con seed
+    routers/           # auth, courses, subjects, sales, users, roles
+    db/                # Conexión a Mongo y seed
+    core/security.py   # JWT, hashing de contraseñas y dependencias de auth
+    schemas/           # Modelos Pydantic (entrada/salida)
+client/
+  src/
+    api/               # Cliente fetch tipado y endpoints
+    auth/              # Store de sesión (useSyncExternalStore)
+    pages/             # Páginas (login, registro, cursos, ventas, usuarios, roles)
+    components/layout/ # Navbar, Sidebar, Footer
+    router.tsx         # Rutas y guards por rol
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Tecnologías utilizadas
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Frontend**: React 19, TanStack Router, Bootstrap 5.3, react-bootstrap, SweetAlert2, Vite, TypeScript, oxlint.
+- **Backend**: FastAPI, PyMongo (async), PyJWT, pwdlib (bcrypt), Ruff.
+- **Infraestructura**: Docker Compose, MongoDB 8, mongoku.
