@@ -13,14 +13,26 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "httpx2>=2.13.1",
+    "pytest>=9.1.1",
     "ruff>=0.16.9",
 ]
+
+[tool.pytest.ini_options]
+# pytest se ejecuta desde la carpeta `api` con `uv run pytest`
+testpaths = ["tests"]
+# permite importar `app.*` desde los tests sin instalar el paquete
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 88
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+# los tests setean variables de entorno antes de importar la app
+"tests/**" = ["E402"]
 
 [tool.ruff.format]
 quote-style = "double"
