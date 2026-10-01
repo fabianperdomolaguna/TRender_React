@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+
 class SellRowInfo(BaseModel):
     course: str = Field(min_length=1)
     subject: str = Field(min_length=1)

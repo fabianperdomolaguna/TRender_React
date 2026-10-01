@@ -1,10 +1,13 @@
 import os
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.db.database import db_client
 from app.db.seed import seed
 from app.routers import auth, courses, roles, sales, subjects, users
+
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):

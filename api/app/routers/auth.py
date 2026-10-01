@@ -1,8 +1,8 @@
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.db.database import db_client, serialize
 from app.core.security import actual_user, create_token, hash_password, verify_password
+from app.db.database import db_client, serialize
 from app.schemas.auth import EntryLogin, EntryRegistry, OutputToken, OutputUser
 
 router = APIRouter(prefix="/auth", tags=["auth"])

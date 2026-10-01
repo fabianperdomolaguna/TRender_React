@@ -4,8 +4,8 @@ from typing import Annotated
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from app.db.database import db_client, get_document, object_id, serialize
 from app.core.security import actual_user
+from app.db.database import db_client, get_document, object_id, serialize
 from app.schemas.sells import EntrySell
 
 COLLECTION = "sales"

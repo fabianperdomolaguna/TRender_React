@@ -1,5 +1,6 @@
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
+
 class EntryRegistry(BaseModel):
     name: str = Field(min_length=3, max_length=120)
     email: EmailStr

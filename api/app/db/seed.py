@@ -1,6 +1,8 @@
 import os
+
 from pwdlib import PasswordHash
 from pwdlib.hashers.bcrypt import BcryptHasher
+
 from app.db.database import db_client
 
 _hasher = PasswordHash((BcryptHasher(),))

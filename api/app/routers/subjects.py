@@ -1,8 +1,8 @@
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.db.database import db_client
 from app.core.security import actual_user
+from app.db.database import db_client
 
 COLLECTION = "subjects"
 router = APIRouter(prefix="/subjects", tags=["subjects"])

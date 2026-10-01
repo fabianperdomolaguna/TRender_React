@@ -1,8 +1,8 @@
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.db.database import db_client, get_document, object_id, serialize
 from app.core.security import actual_user
+from app.db.database import db_client, get_document, object_id, serialize
 from app.schemas.courses import VALID_STATUS, VALID_SUBJECTS, EntryCourse
 
 COLLECTION = "courses"
